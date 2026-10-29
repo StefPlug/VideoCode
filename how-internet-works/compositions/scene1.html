@@ -1,0 +1,392 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      background:
+        radial-gradient(1400px 900px at 50% 30%, #12203c 0%, #0a1122 55%, #070b16 100%);
+      font-family: Inter, sans-serif;
+      color: #e9f1ff;
+    }
+    .cam {
+      position: absolute;
+      inset: 0;
+    }
+    .mono {
+      font-family: "JetBrains Mono", monospace;
+    }
+    .label {
+      font-family: "JetBrains Mono", monospace;
+      font-size: 36px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #8fb0d8;
+    }
+    /* browser mock */
+    .browser {
+      position: absolute;
+      left: 510px;
+      top: 170px;
+      width: 900px;
+      height: 540px;
+      border-radius: 22px;
+      background: #0e1729;
+      border: 1.5px solid #2b3f63;
+      box-shadow: 0 40px 120px rgba(2, 8, 23, 0.8), 0 0 0 1px rgba(80, 140, 220, 0.12),
+        0 0 90px rgba(45, 130, 220, 0.14);
+      overflow: hidden;
+    }
+    .chrome-bar {
+      height: 88px;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      padding: 0 30px;
+      background: #121d33;
+      border-bottom: 1.5px solid #223454;
+    }
+    .dot {
+      width: 17px;
+      height: 17px;
+      border-radius: 50%;
+    }
+    .addr-pill {
+      flex: 1;
+      height: 52px;
+      border-radius: 26px;
+      background: #0a1324;
+      border: 1.5px solid #2b3f63;
+      display: flex;
+      align-items: center;
+      padding: 0 26px;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 36px;
+      color: #cfe4ff;
+    }
+    .caret {
+      display: inline-block;
+      width: 3px;
+      height: 32px;
+      background: #35d6ff;
+      margin-left: 6px;
+      vertical-align: middle;
+    }
+    .content {
+      position: absolute;
+      inset: 88px 0 0 0;
+    }
+    /* keycap */
+    .keycap {
+      position: absolute;
+      left: 1355px;
+      top: 232px;
+      padding: 14px 30px;
+      border-radius: 16px;
+      background: #17233c;
+      border: 1.5px solid #3a5a8c;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 32px;
+      color: #cfe4ff;
+      box-shadow: 0 12px 34px rgba(2, 8, 23, 0.7);
+    }
+    /* world nodes */
+    .node {
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+    .node-box {
+      width: 190px;
+      height: 130px;
+      border-radius: 20px;
+      background: linear-gradient(160deg, #16243e, #101b30);
+      border: 1.5px solid #31496f;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 22px 60px rgba(2, 8, 23, 0.75);
+    }
+    .node-box svg {
+      width: 84px;
+      height: 84px;
+    }
+    .req {
+      position: absolute;
+      left: 380px;
+      top: 690px;
+      padding: 16px 34px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, rgba(53, 214, 255, 0.22), rgba(53, 214, 255, 0.08));
+      border: 2px solid #35d6ff;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 36px;
+      letter-spacing: 0.14em;
+      color: #a5ecff;
+      box-shadow: 0 0 44px rgba(53, 214, 255, 0.45), 0 16px 40px rgba(2, 8, 23, 0.6);
+    }
+    .mesh-line {
+      stroke: #2c456e;
+      stroke-width: 3;
+      fill: none;
+      stroke-linecap: round;
+    }
+    .mesh-line-glow {
+      stroke: #35d6ff;
+      stroke-width: 3;
+      fill: none;
+      stroke-linecap: round;
+      opacity: 0.65;
+    }
+    .mesh-node {
+      fill: #14233d;
+      stroke: #3c5c8c;
+      stroke-width: 2.5;
+    }
+    .mesh-node-hot {
+      fill: #1b3050;
+      stroke: #35d6ff;
+      stroke-width: 2.5;
+    }
+    .mini-line {
+      stroke: #2c456e;
+      stroke-width: 3;
+      fill: none;
+      stroke-linecap: round;
+    }
+    .mini-box {
+      fill: #15253f;
+      stroke: #3a5c8e;
+      stroke-width: 2.5;
+    }
+  </style>
+
+  <div id="root" data-composition-id="s1" data-width="1920" data-height="1080">
+    <div id="s1-cam" class="cam">
+      <!-- network mesh behind -->
+      <svg
+        id="s1-net"
+        class="clip"
+        data-start="6.2"
+        data-duration="5.55"
+        data-track-index="1"
+        width="1920"
+        height="1080"
+        style="position: absolute; inset: 0"
+      >
+        <path class="mesh-line s1-mline" d="M 480 720 C 620 640, 700 640, 830 700" />
+        <path class="mesh-line s1-mline" d="M 830 700 C 960 760, 1020 770, 1130 720" />
+        <path class="mesh-line s1-mline" d="M 1130 720 C 1260 670, 1330 660, 1440 710" />
+        <path class="mesh-line-glow s1-mline" d="M 480 720 C 640 780, 720 790, 830 700" />
+        <path class="mesh-line-glow s1-mline" d="M 1130 720 C 1240 790, 1330 780, 1440 710" />
+        <circle class="mesh-node s1-mnode" cx="655" cy="672" r="16" />
+        <circle class="mesh-node-hot s1-mnode" cx="830" cy="700" r="19" />
+        <circle class="mesh-node s1-mnode" cx="985" cy="752" r="16" />
+        <circle class="mesh-node-hot s1-mnode" cx="1130" cy="720" r="19" />
+        <circle class="mesh-node s1-mnode" cx="1288" cy="700" r="16" />
+      </svg>
+
+      <!-- computer -->
+      <div id="s1-pc" class="clip node" data-start="6.1" data-duration="5.65" data-track-index="2" style="left: 175px; top: 610px">
+        <div class="node-box s1-pc-in">
+          <svg viewBox="0 0 84 84" fill="none">
+            <rect x="12" y="16" width="60" height="40" rx="6" stroke="#7fd8ff" stroke-width="4" />
+            <path d="M 6 68 H 78" stroke="#7fd8ff" stroke-width="4" stroke-linecap="round" />
+            <rect x="22" y="26" width="40" height="20" rx="3" fill="rgba(53,214,255,0.25)" />
+          </svg>
+        </div>
+        <div class="label s1-pc-label">Your computer</div>
+      </div>
+
+      <!-- server -->
+      <div id="s1-server" class="clip node" data-start="6.4" data-duration="5.35" data-track-index="3" style="left: 1465px; top: 610px">
+        <div class="node-box s1-server-in">
+          <svg viewBox="0 0 84 84" fill="none">
+            <rect x="16" y="12" width="52" height="18" rx="5" stroke="#8b7cff" stroke-width="4" />
+            <rect x="16" y="38" width="52" height="18" rx="5" stroke="#8b7cff" stroke-width="4" />
+            <rect x="16" y="64" width="52" height="8" rx="4" fill="rgba(139,124,255,0.35)" />
+            <circle cx="27" cy="21" r="3.4" fill="#35d6ff" />
+            <circle cx="27" cy="47" r="3.4" fill="#35d6ff" />
+          </svg>
+        </div>
+        <div class="label s1-server-label">Server</div>
+      </div>
+
+      <!-- request packet -->
+      <div id="s1-req" class="clip" data-start="8.9" data-duration="2.85" data-track-index="4">
+        <div class="req s1-req-in">REQUEST</div>
+      </div>
+
+      <!-- browser mock -->
+      <div id="s1-browser" class="clip" data-start="0" data-duration="12" data-track-index="5">
+        <div class="browser s1-browser-in">
+          <div class="chrome-bar">
+            <div class="dot" style="background: #ff6b6b"></div>
+            <div class="dot" style="background: #fbbf24"></div>
+            <div class="dot" style="background: #34d399"></div>
+            <div class="addr-pill">
+              <span id="s1-typed" class="mono">https://example.com</span>
+              <span id="s1-caret" class="caret"></span>
+            </div>
+          </div>
+          <div class="content">
+            <svg id="s1-content" class="clip" data-start="3.4" data-duration="8.35" data-track-index="6" width="900" height="452" style="position: absolute; inset: 0">
+              <rect class="mini-box s1-mbox" x="360" y="60" width="180" height="74" rx="14" />
+              <rect class="mini-box s1-mbox" x="120" y="250" width="180" height="74" rx="14" />
+              <rect class="mini-box s1-mbox" x="600" y="250" width="180" height="74" rx="14" />
+              <path class="mini-line s1-mline2" d="M 380 250 C 380 180, 420 150, 450 134" />
+              <path class="mini-line s1-mline2" d="M 520 134 C 560 160, 600 190, 640 250" />
+              <path class="mini-line s1-mline2" d="M 300 287 H 600" />
+              <circle class="mesh-node-hot s1-mbox" cx="450" cy="97" r="10" />
+              <circle class="mesh-node s1-mbox" cx="210" cy="287" r="10" />
+              <circle class="mesh-node s1-mbox" cx="690" cy="287" r="10" />
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- enter key -->
+      <div id="s1-key" class="clip" data-start="2.85" data-duration="0.8" data-track-index="7">
+        <div class="keycap s1-key-in" data-layout-ignore>Enter ↵</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // typewriter: split URL into char spans (deterministic, at init)
+    (function () {
+      const el = document.getElementById("s1-typed");
+      const text = el.textContent;
+      el.textContent = "";
+      for (const ch of text) {
+        const s = document.createElement("span");
+        s.textContent = ch;
+        s.style.opacity = "0";
+        el.appendChild(s);
+      }
+    })();
+
+    const tl = gsap.timeline({ paused: true });
+
+    // browser window is on screen from frame 0 (frame-0 thumbnail + brief beat: the caret appears on a dark screen)
+    // typing the URL
+    tl.fromTo(
+      "#s1-typed span",
+      { opacity: 0 },
+      { opacity: 1, duration: 0.05, stagger: 0.075, ease: "none" },
+      0.85,
+    );
+    // caret blink (finite repeats, seek-safe)
+    tl.fromTo(
+      "#s1-caret",
+      { opacity: 1 },
+      { opacity: 0, duration: 0.38, repeat: 23, yoyo: true, ease: "steps(1)" },
+      0.85,
+    );
+
+    // enter key press
+    tl.fromTo(
+      "#s1-key .s1-key-in",
+      { opacity: 0, y: -22 },
+      { opacity: 1, y: 0, duration: 0.22, ease: "power3.out" },
+      2.85,
+    );
+    tl.to("#s1-key .s1-key-in", { y: 8, duration: 0.1, ease: "power2.in" }, 3.08);
+    tl.to("#s1-key .s1-key-in", { y: 0, duration: 0.16, ease: "power2.out" }, 3.2);
+    tl.to("#s1-key .s1-key-in", { opacity: 0, duration: 0.18 }, 3.42);
+
+    // schematic preview inside the window
+    tl.fromTo(
+      "#s1-content",
+      { opacity: 0 },
+      { opacity: 1, duration: 0.5, ease: "power2.out" },
+      3.5,
+    );
+    tl.fromTo(
+      "#s1-content .s1-mbox",
+      { opacity: 0, scale: 0.6, transformOrigin: "50% 50%" },
+      { opacity: 1, scale: 1, duration: 0.45, stagger: 0.16, ease: "back.out(1.5)" },
+      3.8,
+    );
+    tl.fromTo(
+      "#s1-content .s1-mline2",
+      { strokeDashoffset: 220, strokeDasharray: 220 },
+      { strokeDashoffset: 0, duration: 0.8, stagger: 0.15, ease: "power2.inOut" },
+      4.1,
+    );
+
+    // camera pulls out to reveal the network
+    tl.fromTo(
+      "#s1-cam",
+      { scale: 1, transformOrigin: "50% 42%" },
+      { scale: 0.78, duration: 2.3, ease: "power2.inOut" },
+      6.0,
+    );
+
+    // nodes arrive
+    tl.fromTo(
+      "#s1-pc .s1-pc-in",
+      { opacity: 0, x: -70, filter: "blur(8px)" },
+      { opacity: 1, x: 0, filter: "blur(0px)", duration: 0.6, ease: "power3.out" },
+      6.15,
+    );
+    tl.fromTo(
+      "#s1-pc .s1-pc-label",
+      { opacity: 0, y: 14 },
+      { opacity: 1, y: 0, duration: 0.45, ease: "power2.out" },
+      7.35,
+    );
+    tl.fromTo(
+      "#s1-server .s1-server-in",
+      { opacity: 0, x: 70, filter: "blur(8px)" },
+      { opacity: 1, x: 0, filter: "blur(0px)", duration: 0.6, ease: "power3.out" },
+      6.4,
+    );
+    tl.fromTo(
+      "#s1-server .s1-server-label",
+      { opacity: 0, y: 14 },
+      { opacity: 1, y: 0, duration: 0.45, ease: "power2.out" },
+      7.55,
+    );
+    tl.fromTo("#s1-net", { opacity: 0 }, { opacity: 1, duration: 0.5 }, 6.3);
+    tl.fromTo(
+      "#s1-net .s1-mline",
+      { strokeDashoffset: 420, strokeDasharray: 420 },
+      { strokeDashoffset: 0, duration: 1.1, stagger: 0.13, ease: "power2.inOut" },
+      6.55,
+    );
+    tl.fromTo(
+      "#s1-net .s1-mnode",
+      { opacity: 0, scale: 0.3, transformOrigin: "50% 50%" },
+      { opacity: 1, scale: 1, duration: 0.4, stagger: 0.11, ease: "back.out(1.6)" },
+      6.85,
+    );
+
+    // REQUEST packet launches and travels toward the network
+    tl.fromTo(
+      "#s1-req .s1-req-in",
+      { opacity: 0, scale: 0.5, transformOrigin: "50% 50%" },
+      { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(1.8)" },
+      8.95,
+    );
+    tl.fromTo(
+      "#s1-req .s1-req-in",
+      { x: 0, y: 0 },
+      { x: 300, y: -20, duration: 1.9, ease: "power1.inOut" },
+      9.35,
+    );
+
+    // camera drifts to follow the packet
+    tl.fromTo(
+      "#s1-cam",
+      { x: 0 },
+      { x: -46, duration: 2.1, ease: "power1.inOut" },
+      9.3,
+    );
+
+    window.__timelines["s1"] = tl;
+    tl.seek(0);
+  </script>
+</template>

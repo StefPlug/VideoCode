@@ -1,0 +1,338 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      background: radial-gradient(1400px 900px at 38% 45%, #12203c 0%, #0a1122 55%, #070b16 100%);
+      font-family: Inter, sans-serif;
+      color: #e9f1ff;
+    }
+    .cam {
+      position: absolute;
+      inset: 0;
+    }
+    .label {
+      font-family: "JetBrains Mono", monospace;
+      font-size: 30px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #8fb0d8;
+    }
+    .label-big {
+      font-family: "JetBrains Mono", monospace;
+      font-size: 34px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #cfe4ff;
+    }
+    .node-box {
+      width: 210px;
+      height: 150px;
+      border-radius: 22px;
+      background: linear-gradient(160deg, #16243e, #101b30);
+      border: 1.5px solid #31496f;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 22px 60px rgba(2, 8, 23, 0.75);
+    }
+    .node-box svg {
+      width: 92px;
+      height: 92px;
+    }
+    .wave-arc {
+      stroke: #35d6ff;
+      stroke-width: 5;
+      fill: none;
+      stroke-linecap: round;
+      opacity: 0.85;
+    }
+    .chip {
+      padding: 18px 36px;
+      border-radius: 16px;
+      background: #132138;
+      border: 1.5px solid #3a5c8e;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 30px;
+      letter-spacing: 0.12em;
+      color: #cfe4ff;
+      box-shadow: 0 16px 44px rgba(2, 8, 23, 0.66);
+      white-space: nowrap;
+    }
+    .fiber-shell {
+      width: 1500px;
+      height: 620px;
+      border-radius: 320px;
+      background: radial-gradient(closest-side, #0d1b33 0%, #0d1b33 58%, #1b2c4c 59%, #101c33 78%, #0b1426 100%);
+      border: 2px solid #31496f;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 40px 140px rgba(2, 8, 23, 0.8), 0 0 120px rgba(53, 214, 255, 0.12);
+    }
+    .fiber-core {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 235px;
+      height: 150px;
+      background: linear-gradient(180deg, rgba(53, 214, 255, 0.16), rgba(53, 214, 255, 0.05));
+      border-top: 2px solid rgba(53, 214, 255, 0.5);
+      border-bottom: 2px solid rgba(53, 214, 255, 0.5);
+    }
+    .light-pulse {
+      position: absolute;
+      top: 275px;
+      width: 130px;
+      height: 70px;
+      border-radius: 40px;
+      background: radial-gradient(closest-side, #eaffff 0%, #6fe6ff 45%, rgba(53, 214, 255, 0) 100%);
+      filter: blur(1px);
+    }
+    .copper {
+      width: 1200px;
+      height: 260px;
+      position: relative;
+    }
+    .rail {
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 14px;
+      border-radius: 8px;
+      background: linear-gradient(90deg, #6b4a2f, #c98d4e 30%, #e0a961 50%, #c98d4e 70%, #6b4a2f);
+    }
+    .spark {
+      position: absolute;
+      width: 90px;
+      height: 46px;
+      border-radius: 24px;
+      background: radial-gradient(closest-side, #fff2c9 0%, #fbbf24 50%, rgba(251, 191, 36, 0) 100%);
+    }
+    .bracket {
+      height: 3px;
+      background: linear-gradient(90deg, transparent, #3a5c8e 12%, #3a5c8e 88%, transparent);
+    }
+  </style>
+
+  <div id="root" data-composition-id="s2" data-width="1920" data-height="1080">
+    <div id="s2-cam" class="cam">
+      <!-- ============ WORLD: laptop, router, radio waves ============ -->
+      <div id="s2-world" class="clip" data-start="0" data-duration="7" data-track-index="1" style="position: absolute; inset: 0">
+        <div class="s2-world-in" style="position: absolute; inset: 0">
+          <!-- laptop -->
+          <div style="position: absolute; left: 130px; top: 560px; display: flex; flex-direction: column; align-items: center; gap: 18px">
+            <div class="node-box">
+              <svg viewBox="0 0 92 92" fill="none">
+                <rect x="14" y="18" width="64" height="44" rx="7" stroke="#7fd8ff" stroke-width="4" />
+                <path d="M 6 74 H 86" stroke="#7fd8ff" stroke-width="4" stroke-linecap="round" />
+              </svg>
+            </div>
+            <div class="label s2-wifi-label">Wi-Fi</div>
+          </div>
+          <!-- router -->
+          <div id="s2-router" style="position: absolute; left: 860px; top: 520px; display: flex; flex-direction: column; align-items: center; gap: 18px">
+            <div class="node-box s2-router-in" id="s2-router-box">
+              <svg viewBox="0 0 92 92" fill="none">
+                <rect x="12" y="46" width="68" height="30" rx="9" stroke="#8b7cff" stroke-width="4" />
+                <circle cx="28" cy="61" r="4" fill="#35d6ff" />
+                <circle cx="44" cy="61" r="4" fill="#35d6ff" />
+                <path d="M 30 40 C 38 26, 54 26, 62 40" stroke="#8b7cff" stroke-width="4" stroke-linecap="round" />
+                <path d="M 20 30 C 34 10, 58 10, 72 30" stroke="#8b7cff" stroke-width="4" stroke-linecap="round" opacity="0.6" />
+              </svg>
+            </div>
+            <div class="label s2-radio-label">Radio waves</div>
+          </div>
+          <!-- wifi arcs -->
+          <svg style="position: absolute; inset: 0" width="1920" height="1080">
+            <path class="wave-arc s2-arc" d="M 380 540 C 520 430, 660 430, 800 520" />
+            <path class="wave-arc s2-arc" d="M 360 620 C 520 520, 680 520, 810 590" />
+            <path class="wave-arc s2-arc" d="M 390 700 C 540 620, 680 620, 800 660" />
+          </svg>
+        </div>
+      </div>
+
+      <!-- ============ FIBER CROSS-SECTION ============ -->
+      <div id="s2-fiber" class="clip" data-start="6.05" data-duration="4.6" data-track-index="2" style="position: absolute; inset: 0">
+        <div class="s2-fiber-in" style="position: absolute; left: 210px; top: 230px">
+          <div class="fiber-shell">
+            <div class="fiber-core"></div>
+            <div class="light-pulse s2-lp" style="left: -140px"></div>
+            <div class="light-pulse s2-lp" style="left: -140px"></div>
+            <div class="light-pulse s2-lp" style="left: -140px"></div>
+            <div class="light-pulse s2-lp" style="left: -140px"></div>
+          </div>
+          <div style="display: flex; justify-content: center; margin-top: 34px">
+            <div class="label s2-fiber-label">Fiber — light pulses</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============ COPPER WIRE ============ -->
+      <div id="s2-copper" class="clip" data-start="10.1" data-duration="4.9" data-track-index="3" style="position: absolute; inset: 0">
+        <div class="s2-copper-in" style="position: absolute; left: 360px; top: 380px">
+          <div class="copper">
+            <div class="rail" style="top: 40px"></div>
+            <div class="rail" style="top: 200px"></div>
+            <div class="spark s2-spark" style="top: 100px; left: -110px"></div>
+            <div class="spark s2-spark" style="top: 100px; left: -110px"></div>
+            <div class="spark s2-spark" style="top: 100px; left: -110px"></div>
+          </div>
+          <div style="display: flex; justify-content: center; margin-top: 26px">
+            <div class="label s2-copper-label">Copper — electrical signals</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============ THREE MEDIA UNITED ============ -->
+      <div id="s2-final" class="clip" data-start="12.9" data-duration="2.1" data-track-index="4" style="position: absolute; inset: 0">
+        <div class="s2-final-in" style="position: absolute; inset: 0">
+          <div style="position: absolute; left: 355px; top: 330px; display: flex; gap: 70px">
+            <div class="chip s2-chip">WIFI</div>
+            <div class="chip s2-chip">FIBER</div>
+            <div class="chip s2-chip">COPPER</div>
+          </div>
+          <div class="bracket s2-bracket" style="position: absolute; left: 320px; top: 440px; width: 1290px"></div>
+          <div style="position: absolute; left: 0; right: 0; top: 500px; display: flex; justify-content: center">
+            <div class="label-big s2-big-label">Physical transmission</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const tl = gsap.timeline({ paused: true });
+
+    // router present from the start
+    tl.fromTo(
+      "#s2-router .s2-router-in",
+      { opacity: 0, y: 30, filter: "blur(8px)" },
+      { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.7, ease: "power3.out" },
+      0.15,
+    );
+
+    // camera pushes toward the router
+    tl.fromTo(
+      "#s2-cam",
+      { scale: 1, transformOrigin: "52% 52%" },
+      { scale: 1.22, duration: 2.1, ease: "power2.inOut" },
+      0,
+    );
+
+    // radio waves expand (finite loops)
+    tl.fromTo(
+      "#s2-world .s2-arc",
+      { opacity: 0, strokeDashoffset: 340, strokeDasharray: 340 },
+      {
+        opacity: 0.85,
+        strokeDashoffset: 0,
+        duration: 0.9,
+        stagger: 0.28,
+        ease: "power2.out",
+      },
+      2.0,
+    );
+    tl.to(
+      "#s2-world .s2-arc",
+      { opacity: 0.25, duration: 0.9, stagger: 0.28, repeat: 2, yoyo: true, ease: "sine.inOut" },
+      3.0,
+    );
+    tl.fromTo(
+      "#s2-world .s2-wifi-label",
+      { opacity: 0, y: 12 },
+      { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" },
+      2.3,
+    );
+    tl.fromTo(
+      "#s2-world .s2-radio-label",
+      { opacity: 0, y: 12 },
+      { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" },
+      3.1,
+    );
+
+    // zoom-through the router into the fiber
+    tl.to(
+      "#s2-router-box",
+      { scale: 2.6, opacity: 0, duration: 0.75, ease: "power2.in", transformOrigin: "50% 50%" },
+      5.85,
+    );
+    tl.to("#s2-world .s2-world-in", { opacity: 0, duration: 0.6, ease: "power2.in" }, 6.0);
+    tl.fromTo(
+      "#s2-fiber .s2-fiber-in",
+      { opacity: 0, scale: 0.25, filter: "blur(10px)", transformOrigin: "50% 45%" },
+      { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.95, ease: "power2.out" },
+      6.1,
+    );
+
+    // light pulses travel along the core
+    tl.fromTo(
+      "#s2-fiber .s2-lp",
+      { x: 0, opacity: 0 },
+      {
+        x: 1720,
+        opacity: 1,
+        duration: 2.1,
+        stagger: 0.52,
+        repeat: 1,
+        ease: "power1.inOut",
+      },
+      6.9,
+    );
+    tl.fromTo(
+      "#s2-fiber .s2-fiber-label",
+      { opacity: 0, y: 12 },
+      { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" },
+      7.3,
+    );
+
+    // fiber recedes, copper takes the stage
+    tl.to(
+      "#s2-fiber .s2-fiber-in",
+      { opacity: 0, scale: 0.8, duration: 0.55, ease: "power2.in" },
+      10.05,
+    );
+    tl.fromTo(
+      "#s2-copper .s2-copper-in",
+      { opacity: 0, y: 60, filter: "blur(8px)" },
+      { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.7, ease: "power3.out" },
+      10.25,
+    );
+    tl.fromTo(
+      "#s2-copper .s2-spark",
+      { x: 0, opacity: 0.9 },
+      { x: 1420, duration: 1.5, stagger: 0.45, repeat: 1, ease: "power1.inOut" },
+      10.7,
+    );
+    tl.fromTo(
+      "#s2-copper .s2-copper-label",
+      { opacity: 0, y: 12 },
+      { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" },
+      10.6,
+    );
+
+    // three media united under one label
+    tl.to("#s2-copper .s2-copper-in", { opacity: 0, duration: 0.45 }, 12.9);
+    tl.fromTo(
+      "#s2-final .s2-chip",
+      { opacity: 0, y: 34, filter: "blur(6px)" },
+      { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.5, stagger: 0.16, ease: "power3.out" },
+      13.0,
+    );
+    tl.fromTo(
+      "#s2-final .s2-bracket",
+      { opacity: 0, scaleX: 0.3, transformOrigin: "50% 50%" },
+      { opacity: 1, scaleX: 1, duration: 0.55, ease: "power2.out" },
+      13.3,
+    );
+    tl.fromTo(
+      "#s2-final .s2-big-label",
+      { opacity: 0, y: 22, filter: "blur(8px)" },
+      { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.55, ease: "power3.out" },
+      13.5,
+    );
+
+    window.__timelines["s2"] = tl;
+    tl.seek(0);
+  </script>
+</template>

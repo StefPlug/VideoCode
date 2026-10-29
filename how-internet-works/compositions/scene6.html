@@ -1,0 +1,377 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      background: radial-gradient(1400px 900px at 50% 35%, #12203c 0%, #0a1122 55%, #070b16 100%);
+      font-family: Inter, sans-serif;
+      color: #e9f1ff;
+    }
+    .cam {
+      position: absolute;
+      inset: 0;
+    }
+    .mono {
+      font-family: "JetBrains Mono", monospace;
+    }
+    .label {
+      font-family: "JetBrains Mono", monospace;
+      font-size: 28px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #8fb0d8;
+    }
+    .endpoint {
+      width: 190px;
+      height: 120px;
+      border-radius: 18px;
+      background: linear-gradient(160deg, #16243e, #101b30);
+      border: 2px solid #31496f;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 18px 50px rgba(2, 8, 23, 0.7);
+    }
+    .pipe {
+      height: 12px;
+      border-radius: 8px;
+      background: linear-gradient(90deg, #2c456e, #3c5c8e 50%, #2c456e);
+    }
+    .term {
+      width: 1120px;
+      height: 430px;
+      border-radius: 20px;
+      background: #0b1424;
+      border: 1.5px solid #2b3f63;
+      box-shadow: 0 40px 120px rgba(2, 8, 23, 0.8), 0 0 80px rgba(53, 214, 255, 0.08);
+      overflow: hidden;
+    }
+    .term-bar {
+      height: 64px;
+      background: #12203a;
+      border-bottom: 1.5px solid #223454;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 0 26px;
+    }
+    .dot {
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+    }
+    .term-body {
+      padding: 34px 38px;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 30px;
+      color: #cfe4ff;
+    }
+    .prompt {
+      color: #34d399;
+    }
+    .caret {
+      display: inline-block;
+      width: 3px;
+      height: 34px;
+      background: #35d6ff;
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+    .card {
+      border-radius: 18px;
+      background: linear-gradient(160deg, #16243e, #101b30);
+      border: 1.5px solid #31496f;
+      padding: 26px 32px;
+      box-shadow: 0 26px 80px rgba(2, 8, 23, 0.75);
+    }
+    .card-line {
+      font-family: "JetBrains Mono", monospace;
+      font-size: 28px;
+      color: #cfe4ff;
+      white-space: nowrap;
+    }
+    .hl {
+      border-radius: 8px;
+      padding: 2px 8px;
+      margin: 0 -8px;
+    }
+    .lock {
+      width: 92px;
+      height: 92px;
+      border-radius: 24px;
+      background: linear-gradient(160deg, #123328, #0e2420);
+      border: 2px solid #34d399;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 60px rgba(52, 211, 153, 0.35);
+    }
+    .page-row {
+      border-radius: 10px;
+      background: #1a2b47;
+    }
+  </style>
+
+  <div id="root" data-composition-id="s6" data-width="1920" data-height="1080">
+    <div id="s6-cam" class="cam">
+      <!-- client <-> server diagram -->
+      <div id="s6-diagram" class="clip" data-start="0" data-duration="20" data-track-index="1" style="position: absolute; inset: 0">
+        <div class="s6-diagram-in" style="position: absolute; inset: 0">
+          <div style="position: absolute; left: 210px; top: 130px">
+            <div class="endpoint">
+              <svg width="72" height="72" viewBox="0 0 84 84" fill="none">
+                <rect x="12" y="16" width="60" height="42" rx="7" stroke="#7fd8ff" stroke-width="4" />
+                <path d="M 6 70 H 78" stroke="#7fd8ff" stroke-width="4" stroke-linecap="round" />
+              </svg>
+            </div>
+            <div class="label" style="margin-top: 14px; text-align: center">Client</div>
+          </div>
+          <div style="position: absolute; left: 1520px; top: 130px">
+            <div class="endpoint">
+              <svg width="72" height="72" viewBox="0 0 84 84" fill="none">
+                <rect x="16" y="12" width="52" height="18" rx="5" stroke="#8b7cff" stroke-width="4" />
+                <rect x="16" y="38" width="52" height="18" rx="5" stroke="#8b7cff" stroke-width="4" />
+                <circle cx="27" cy="21" r="3.4" fill="#35d6ff" />
+                <circle cx="27" cy="47" r="3.4" fill="#35d6ff" />
+              </svg>
+            </div>
+            <div class="label" style="margin-top: 14px; text-align: center">Server</div>
+          </div>
+          <div class="pipe s6-pipe" style="position: absolute; left: 430px; top: 185px; width: 1060px"></div>
+          <div class="s6-pipe-shield" style="position: absolute; left: 430px; top: 185px; width: 1060px; height: 12px; border-radius: 8px; background: rgba(52, 211, 153, 0.4); opacity: 0"></div>
+          <div class="label s6-hs-label" style="position: absolute; left: 260px; top: 235px">Client ↔ Server</div>
+        </div>
+      </div>
+
+      <!-- terminal -->
+      <div id="s6-term" class="clip" data-start="2" data-duration="14.6" data-track-index="2" style="position: absolute; left: 400px; top: 555px">
+        <div class="term s6-term-in">
+          <div class="term-bar">
+            <div class="dot" style="background: #ff6b6b"></div>
+            <div class="dot" style="background: #fbbf24"></div>
+            <div class="dot" style="background: #34d399"></div>
+            <div class="label" style="margin-left: 12px">Terminal</div>
+          </div>
+          <div class="term-body">
+            <div>
+              <span class="prompt">$</span>
+              <span id="s6-cmd" style="margin-left: 16px">curl -i https://example.com/</span>
+              <span id="s6-caret" class="caret"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TLS lock -->
+      <div id="s6-lock" class="clip" data-start="6.1" data-duration="13.9" data-track-index="3" style="position: absolute; left: 915px; top: 120px">
+        <div class="s6-lock-in" style="display: flex; align-items: center; gap: 22px">
+          <div class="lock">
+            <svg width="44" height="44" viewBox="0 0 44 44" fill="none">
+              <rect x="9" y="19" width="26" height="18" rx="5" stroke="#34d399" stroke-width="3.5" />
+              <path d="M 14 19 V 14 A 8 8 0 0 1 30 14 V 19" stroke="#34d399" stroke-width="3.5" />
+            </svg>
+          </div>
+          <div class="label s6-tls-label" style="color: #34d399; width: 300px">TLS encryption</div>
+        </div>
+      </div>
+
+      <!-- request card -->
+      <div id="s6-reqcard" class="clip" data-start="8.9" data-duration="4.2" data-track-index="4" style="position: absolute; left: 320px; top: 295px">
+        <div class="card s6-req-in">
+          <div class="label" style="margin-bottom: 16px">Request</div>
+          <div class="card-line"><span class="hl s6-hl" id="s6-req-l1">GET / HTTP/1.1</span></div>
+          <div class="card-line" style="margin-top: 10px"><span class="hl s6-hl" id="s6-req-l2">Host: example.com</span></div>
+        </div>
+      </div>
+
+      <!-- response card -->
+      <div id="s6-respcard" class="clip" data-start="12.6" data-duration="7.4" data-track-index="5" style="position: absolute; left: 1150px; top: 295px">
+        <div class="card s6-resp-in">
+          <div class="label" style="margin-bottom: 16px">Response</div>
+          <div class="card-line" id="s6-status" style="color: #34d399">HTTP/1.1 200 OK</div>
+          <div style="margin-top: 18px">
+            <div class="card-line s6-html-line" style="color: #8fb0d8">&lt;html&gt;</div>
+            <div class="card-line s6-html-line" style="color: #8fb0d8; margin-left: 28px">&lt;body&gt;</div>
+            <div class="card-line s6-html-line" style="color: #cfe4ff; margin-left: 56px">&lt;h1&gt;Hello&lt;/h1&gt;</div>
+            <div class="card-line s6-html-line" style="color: #8fb0d8; margin-left: 28px">&lt;/body&gt;</div>
+            <div class="card-line s6-html-line" style="color: #8fb0d8">&lt;/html&gt;</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- browser page (HTML becomes content) -->
+      <div id="s6-page" class="clip" data-start="15.9" data-duration="4.1" data-track-index="6" style="position: absolute; left: 560px; top: 545px">
+        <div class="s6-page-in" style="width: 800px; border-radius: 18px; background: #0e1729; border: 1.5px solid #2b3f63; overflow: hidden; box-shadow: 0 30px 90px rgba(2, 8, 23, 0.8)">
+          <div data-layout-ignore style="height: 56px; background: #12203a; border-bottom: 1.5px solid #223454; display: flex; align-items: center; padding: 0 22px; gap: 10px">
+            <div class="dot" style="background: #ff6b6b"></div>
+            <div class="dot" style="background: #fbbf24"></div>
+            <div class="dot" style="background: #34d399"></div>
+            <div class="mono" style="margin-left: 14px; font-size: 19px; color: #8fb0d8">example.com</div>
+          </div>
+          <div style="padding: 30px">
+            <div class="page-row s6-row" style="height: 44px; width: 62%; background: #24406b"></div>
+            <div class="page-row s6-row" style="height: 150px; margin-top: 20px"></div>
+            <div style="display: flex; gap: 18px; margin-top: 20px">
+              <div class="page-row s6-row" style="height: 90px; flex: 1"></div>
+              <div class="page-row s6-row" style="height: 90px; flex: 1"></div>
+              <div class="page-row s6-row" style="height: 90px; flex: 1"></div>
+            </div>
+            <div class="page-row s6-row" style="height: 26px; width: 40%; margin-top: 24px"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // typewriter for the curl command
+    (function () {
+      const el = document.getElementById("s6-cmd");
+      const text = el.textContent;
+      el.textContent = "";
+      for (const ch of text) {
+        const s = document.createElement("span");
+        s.textContent = ch;
+        s.style.opacity = "0";
+        el.appendChild(s);
+      }
+    })();
+
+    const tl = gsap.timeline({ paused: true });
+
+    // diagram
+    tl.fromTo(
+      "#s6-diagram .endpoint",
+      { opacity: 0, y: 22, filter: "blur(8px)" },
+      { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.55, stagger: 0.15, ease: "power3.out" },
+      0.15,
+    );
+    tl.fromTo(
+      "#s6-diagram .s6-pipe",
+      { scaleX: 0, transformOrigin: "0% 50%" },
+      { scaleX: 1, duration: 0.8, ease: "power2.inOut" },
+      0.5,
+    );
+    tl.fromTo(
+      "#s6-diagram .s6-hs-label",
+      { opacity: 0, y: 10 },
+      { opacity: 1, y: 0, duration: 0.4 },
+      0.9,
+    );
+
+    // terminal opens
+    tl.fromTo(
+      "#s6-term .s6-term-in",
+      { opacity: 0, scale: 0.92, filter: "blur(10px)", transformOrigin: "50% 50%" },
+      { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.6, ease: "power3.out" },
+      2.1,
+    );
+
+    // type the command
+    tl.fromTo(
+      "#s6-cmd span",
+      { opacity: 0 },
+      { opacity: 1, duration: 0.04, stagger: 0.075, ease: "none" },
+      3.0,
+    );
+    tl.fromTo(
+      "#s6-caret",
+      { opacity: 1 },
+      { opacity: 0, duration: 0.36, repeat: 16, yoyo: true, ease: "steps(1)" },
+      3.0,
+    );
+    // press: caret blinks once more then command "runs" (highlight flash)
+    tl.fromTo(
+      "#s6-cmd",
+      { backgroundColor: "rgba(53,214,255,0)" },
+      { backgroundColor: "rgba(53,214,255,0.22)", duration: 0.18, yoyo: true, repeat: 1 },
+      5.55,
+    );
+
+    // TLS lock snaps on the pipe
+    tl.fromTo(
+      "#s6-lock .s6-lock-in",
+      { opacity: 0, scale: 0.5, y: -20, filter: "blur(6px)", transformOrigin: "50% 50%" },
+      { opacity: 1, scale: 1, y: 0, filter: "blur(0px)", duration: 0.5, ease: "back.out(1.7)" },
+      6.2,
+    );
+    tl.fromTo(
+      "#s6-lock .s6-tls-label",
+      { opacity: 0, y: 8 },
+      { opacity: 1, y: 0, duration: 0.35 },
+      6.8,
+    );
+    // pipe becomes shielded (green tint)
+    tl.fromTo(
+      "#s6-diagram .s6-pipe-shield",
+      { opacity: 0 },
+      { opacity: 1, duration: 0.6 },
+      6.35,
+    );
+
+    // request card travels client -> server
+    tl.fromTo(
+      "#s6-reqcard .s6-req-in",
+      { opacity: 0, x: -60, filter: "blur(6px)" },
+      { opacity: 1, x: 0, filter: "blur(0px)", duration: 0.45, ease: "power2.out" },
+      8.95,
+    );
+    tl.to("#s6-reqcard .s6-req-in", { x: 1180, duration: 1.15, ease: "power1.inOut" }, 9.42);
+    tl.to("#s6-reqcard .s6-req-in", { opacity: 0, duration: 0.3 }, 10.55);
+    // headers highlight on arrival
+    tl.fromTo(
+      "#s6-req-l1",
+      { backgroundColor: "rgba(53,214,255,0)" },
+      { backgroundColor: "rgba(53,214,255,0.3)", duration: 0.22, yoyo: true, repeat: 1 },
+      11.3,
+    );
+    tl.fromTo(
+      "#s6-req-l2",
+      { backgroundColor: "rgba(53,214,255,0)" },
+      { backgroundColor: "rgba(53,214,255,0.3)", duration: 0.22, yoyo: true, repeat: 1 },
+      11.8,
+    );
+
+    // response card travels back
+    tl.fromTo(
+      "#s6-respcard .s6-resp-in",
+      { opacity: 0, x: 60, filter: "blur(6px)" },
+      { opacity: 1, x: 0, filter: "blur(0px)", duration: 0.45, ease: "power2.out" },
+      12.65,
+    );
+    tl.to("#s6-respcard .s6-resp-in", { x: -770, duration: 1.25, ease: "power1.inOut" }, 13.9);
+    tl.fromTo(
+      "#s6-status",
+      { opacity: 0 },
+      { opacity: 1, duration: 0.4 },
+      13.15,
+    );
+    // HTML lines appear progressively
+    tl.fromTo(
+      "#s6-respcard .s6-html-line",
+      { opacity: 0, x: 18 },
+      { opacity: 1, x: 0, duration: 0.3, stagger: 0.24, ease: "power2.out" },
+      14.2,
+    );
+
+    // HTML becomes a page
+    tl.to("#s6-term .s6-term-in", { opacity: 0, duration: 0.5 }, 15.7);
+    tl.to("#s6-respcard .s6-resp-in", { opacity: 0, scale: 0.85, duration: 0.45, transformOrigin: "50% 50%" }, 15.95);
+    tl.fromTo(
+      "#s6-page .s6-page-in",
+      { opacity: 0, scale: 0.8, filter: "blur(10px)", transformOrigin: "50% 50%" },
+      { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.7, ease: "power3.out" },
+      16.1,
+    );
+    tl.fromTo(
+      "#s6-page .s6-row",
+      { opacity: 0, y: 22 },
+      { opacity: 1, y: 0, duration: 0.45, stagger: 0.14, ease: "power2.out" },
+      16.7,
+    );
+
+    window.__timelines["s6"] = tl;
+    tl.seek(0);
+  </script>
+</template>

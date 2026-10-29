@@ -1,0 +1,9 @@
+node_modules/
+tools/node_modules/
+tools/*.png
+tools/*.jpg
+tools/test-chrome.mjs
+how-internet-works/node_modules/
+how-internet-works/.hyperframes/
+how-internet-works/renders/
+how-internet-works/qa/
