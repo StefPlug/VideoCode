@@ -1,0 +1,24 @@
+{
+ "alignment": "phrase-level (proportional to character count within each measured VO clip)",
+ "vo_starts": [
+  0.35,
+  12.35,
+  27.35,
+  42.35,
+  58.35,
+  72.35,
+  92.35,
+  112.35
+ ],
+ "cues": 58,
+ "vo_durations": {
+  "scene01": 10.008,
+  "scene02": 12.288,
+  "scene03": 11.376,
+  "scene04": 13.416,
+  "scene05": 13.32,
+  "scene06": 18.528,
+  "scene07": 19.368,
+  "scene08": 16.632
+ }
+}
