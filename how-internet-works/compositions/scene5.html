@@ -1,0 +1,329 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      background: radial-gradient(1400px 900px at 50% 40%, #12203c 0%, #0a1122 55%, #070b16 100%);
+      font-family: Inter, sans-serif;
+      color: #e9f1ff;
+    }
+    .cam {
+      position: absolute;
+      inset: 0;
+    }
+    .mono {
+      font-family: "JetBrains Mono", monospace;
+    }
+    .label {
+      font-family: "JetBrains Mono", monospace;
+      font-size: 28px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #8fb0d8;
+    }
+    .label-big {
+      font-family: "JetBrains Mono", monospace;
+      font-size: 32px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #cfe4ff;
+    }
+    .endpoint {
+      width: 190px;
+      height: 130px;
+      border-radius: 20px;
+      background: linear-gradient(160deg, #16243e, #101b30);
+      border: 2px solid #31496f;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 20px 56px rgba(2, 8, 23, 0.72);
+    }
+    .msg {
+      padding: 13px 26px;
+      border-radius: 13px;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 28px;
+      white-space: nowrap;
+    }
+    .msg-syn {
+      background: rgba(139, 124, 255, 0.16);
+      border: 2px solid #8b7cff;
+      color: #cfc6ff;
+      box-shadow: 0 0 30px rgba(139, 124, 255, 0.35);
+    }
+    .msg-seg {
+      background: rgba(53, 214, 255, 0.15);
+      border: 2px solid #35d6ff;
+      color: #a5ecff;
+      box-shadow: 0 0 28px rgba(53, 214, 255, 0.35);
+    }
+    .msg-udp {
+      background: rgba(251, 191, 36, 0.13);
+      border: 2px solid #fbbf24;
+      color: #ffe1a1;
+      box-shadow: 0 0 26px rgba(251, 191, 36, 0.28);
+    }
+    .lane-line {
+      height: 3px;
+      border-radius: 2px;
+      background: linear-gradient(90deg, transparent, #2c456e 8%, #2c456e 92%, transparent);
+    }
+    .check {
+      color: #34d399;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 26px;
+    }
+  </style>
+
+  <div id="root" data-composition-id="s5" data-width="1920" data-height="1080">
+    <div id="s5-cam" class="cam">
+      <!-- label -->
+      <div id="s5-title" class="clip" data-start="0.1" data-duration="1.6" data-track-index="1" style="position: absolute; left: 0; right: 0; top: 110px; display: flex; justify-content: center">
+        <div class="s5-title-in label-big">Transport layer</div>
+      </div>
+
+      <!-- endpoints -->
+      <div id="s5-client" class="clip" data-start="0" data-duration="14" data-track-index="2" style="position: absolute; left: 165px; top: 350px">
+        <div class="endpoint s5-ep-in">
+          <svg width="80" height="80" viewBox="0 0 84 84" fill="none">
+            <rect x="12" y="16" width="60" height="42" rx="7" stroke="#7fd8ff" stroke-width="4" />
+            <path d="M 6 70 H 78" stroke="#7fd8ff" stroke-width="4" stroke-linecap="round" />
+          </svg>
+        </div>
+        <div class="label" style="margin-top: 16px; text-align: center">Client</div>
+      </div>
+      <div id="s5-server" class="clip" data-start="0" data-duration="14" data-track-index="3" style="position: absolute; left: 1565px; top: 350px">
+        <div class="endpoint s5-ep-in">
+          <svg width="80" height="80" viewBox="0 0 84 84" fill="none">
+            <rect x="16" y="12" width="52" height="18" rx="5" stroke="#8b7cff" stroke-width="4" />
+            <rect x="16" y="38" width="52" height="18" rx="5" stroke="#8b7cff" stroke-width="4" />
+            <circle cx="27" cy="21" r="3.4" fill="#35d6ff" />
+            <circle cx="27" cy="47" r="3.4" fill="#35d6ff" />
+          </svg>
+        </div>
+        <div class="label" style="margin-top: 16px; text-align: center">Server</div>
+      </div>
+
+      <!-- handshake messages -->
+      <div id="s5-syn" class="clip" data-start="1.6" data-duration="1.1" data-track-index="4" style="position: absolute; left: 420px; top: 385px">
+        <div class="msg msg-syn s5-msg-in">SYN →</div>
+      </div>
+      <div id="s5-synack" class="clip" data-start="2.5" data-duration="1.1" data-track-index="5" style="position: absolute; left: 1170px; top: 305px">
+        <div class="msg msg-syn s5-msg-in">← SYN-ACK</div>
+      </div>
+      <div id="s5-ack" class="clip" data-start="3.4" data-duration="1.1" data-track-index="6" style="position: absolute; left: 430px; top: 385px">
+        <div class="msg msg-syn s5-msg-in">ACK →</div>
+      </div>
+
+      <!-- TCP segment lane -->
+      <div id="s5-lane-tcp" class="clip" data-start="4.7" data-duration="9.3" data-track-index="7" style="position: absolute; inset: 0">
+        <div class="s5-lane-in" style="position: absolute; inset: 0">
+          <div class="lane-line" style="position: absolute; left: 380px; top: 655px; width: 1160px"></div>
+          <div class="label s5-tcp-label" style="position: absolute; left: 380px; top: 590px">TCP — ordered stream</div>
+          <div class="check s5-check" style="position: absolute; left: 1560px; top: 630px">✓</div>
+        </div>
+      </div>
+
+      <div id="s5-seg1" class="clip" data-start="4.85" data-duration="1.9" data-track-index="8" style="position: absolute; left: 430px; top: 615px">
+        <div class="msg msg-seg s5-seg-in">SEG 1</div>
+      </div>
+      <div id="s5-seg2" class="clip" data-start="5.55" data-duration="1.9" data-track-index="9" style="position: absolute; left: 430px; top: 615px">
+        <div class="msg msg-seg s5-seg-in">SEG 2</div>
+      </div>
+      <div id="s5-seg3" class="clip" data-start="6.25" data-duration="1.9" data-track-index="10" style="position: absolute; left: 430px; top: 615px">
+        <div class="msg msg-seg s5-seg-in">SEG 3</div>
+      </div>
+      <div id="s5-seg2r" class="clip" data-start="7.35" data-duration="1.35" data-track-index="11" style="position: absolute; left: 430px; top: 615px">
+        <div class="msg msg-seg s5-seg-in">SEG 2 · RETRY</div>
+      </div>
+
+      <!-- UDP lane -->
+      <div id="s5-lane-udp" class="clip" data-start="8.6" data-duration="5.4" data-track-index="12" style="position: absolute; inset: 0">
+        <div class="s5-udp-in" style="position: absolute; inset: 0">
+          <div class="lane-line" style="position: absolute; left: 380px; top: 875px; width: 1160px"></div>
+          <div class="label s5-udp-label" style="position: absolute; left: 380px; top: 810px">UDP — datagrams</div>
+          <div class="label s5-udp-warn" style="position: absolute; left: 1180px; top: 810px; color: #fbbf24">No delivery guarantee</div>
+        </div>
+      </div>
+
+      <div id="s5-dg1" class="clip" data-start="8.8" data-duration="1.2" data-track-index="13" style="position: absolute; left: 430px; top: 835px">
+        <div class="msg msg-udp s5-seg-in">DG 1</div>
+      </div>
+      <div id="s5-dg2" class="clip" data-start="9.4" data-duration="1.2" data-track-index="14" style="position: absolute; left: 430px; top: 835px">
+        <div class="msg msg-udp s5-seg-in">DG 2</div>
+      </div>
+      <div id="s5-dg3" class="clip" data-start="10" data-duration="1.2" data-track-index="15" style="position: absolute; left: 430px; top: 835px">
+        <div class="msg msg-udp s5-seg-in">DG 3</div>
+      </div>
+
+      <!-- final split labels -->
+      <div id="s5-split" class="clip" data-start="11.4" data-duration="2.6" data-track-index="16" style="position: absolute; inset: 0">
+        <div class="s5-split-in" style="position: absolute; inset: 0">
+          <div style="position: absolute; left: 160px; top: 555px; padding: 18px 38px; border-radius: 15px; background: rgba(53, 214, 255, 0.12); border: 2px solid #35d6ff">
+            <div class="mono" style="font-size: 30px; letter-spacing: 0.18em; color: #a5ecff">TCP</div>
+          </div>
+          <div style="position: absolute; left: 160px; top: 775px; padding: 18px 38px; border-radius: 15px; background: rgba(251, 191, 36, 0.1); border: 2px solid #fbbf24">
+            <div class="mono" style="font-size: 30px; letter-spacing: 0.18em; color: #ffe1a1">UDP</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const tl = gsap.timeline({ paused: true });
+
+    // endpoints in
+    tl.fromTo(
+      "#s5-client .s5-ep-in, #s5-server .s5-ep-in",
+      { opacity: 0, y: 26, filter: "blur(8px)" },
+      { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.6, stagger: 0.15, ease: "power3.out" },
+      0.1,
+    );
+
+    // title
+    tl.fromTo(
+      "#s5-title .s5-title-in",
+      { opacity: 0, filter: "blur(10px)" },
+      { opacity: 1, filter: "blur(0px)", duration: 0.5, ease: "power3.out" },
+      0.3,
+    );
+    tl.to("#s5-title .s5-title-in", { opacity: 0, duration: 0.35 }, 1.35);
+
+    // handshake
+    tl.fromTo(
+      "#s5-syn .s5-msg-in",
+      { opacity: 0, x: -40 },
+      { opacity: 1, x: 0, duration: 0.3, ease: "power2.out" },
+      1.65,
+    );
+    tl.to("#s5-syn .s5-msg-in", { x: 1050, duration: 0.5, ease: "power1.inOut" }, 1.97);
+    tl.to("#s5-syn .s5-msg-in", { opacity: 0, duration: 0.2 }, 2.3);
+
+    tl.fromTo(
+      "#s5-synack .s5-msg-in",
+      { opacity: 0, x: 40 },
+      { opacity: 1, x: 0, duration: 0.3, ease: "power2.out" },
+      2.55,
+    );
+    tl.to("#s5-synack .s5-msg-in", { x: -1050, duration: 0.5, ease: "power1.inOut" }, 2.88);
+    tl.to("#s5-synack .s5-msg-in", { opacity: 0, duration: 0.2 }, 3.2);
+
+    tl.fromTo(
+      "#s5-ack .s5-msg-in",
+      { opacity: 0, x: -40 },
+      { opacity: 1, x: 0, duration: 0.3, ease: "power2.out" },
+      3.45,
+    );
+    tl.to("#s5-ack .s5-msg-in", { x: 1050, duration: 0.5, ease: "power1.inOut" }, 3.78);
+    tl.to("#s5-ack .s5-msg-in", { opacity: 0, duration: 0.2 }, 4.1);
+
+    // endpoint pulses on message landings
+    tl.to(
+      "#s5-server .s5-ep-in",
+      { scale: 1.08, duration: 0.22, yoyo: true, repeat: 1, ease: "sine.inOut", transformOrigin: "50% 50%" },
+      2.25,
+    );
+    tl.to(
+      "#s5-client .s5-ep-in",
+      { scale: 1.08, duration: 0.22, yoyo: true, repeat: 1, ease: "sine.inOut", transformOrigin: "50% 50%" },
+      3.15,
+    );
+    tl.to(
+      "#s5-server .s5-ep-in",
+      { scale: 1.08, duration: 0.22, yoyo: true, repeat: 1, ease: "sine.inOut", transformOrigin: "50% 50%" },
+      4.05,
+    );
+
+    // TCP lane appears
+    tl.fromTo(
+      "#s5-lane-tcp .s5-lane-in",
+      { opacity: 0 },
+      { opacity: 1, duration: 0.4 },
+      4.75,
+    );
+    tl.fromTo(
+      "#s5-lane-tcp .s5-tcp-label",
+      { opacity: 0, y: 10 },
+      { opacity: 1, y: 0, duration: 0.35 },
+      4.95,
+    );
+
+    // segments travel, one is lost and retried
+    const segRun = (sel, t0, t1) => {
+      tl.fromTo(sel, { opacity: 0, scale: 0.8, transformOrigin: "50% 50%" }, { opacity: 1, scale: 1, duration: 0.22 }, t0);
+      tl.to(sel, { x: 1040, duration: t1 - t0, ease: "power1.inOut" }, t0 + 0.05);
+    };
+    segRun("#s5-seg1 .s5-seg-in", 4.9, 6.5);
+    segRun("#s5-seg2 .s5-seg-in", 5.6, 7.2);
+    segRun("#s5-seg3 .s5-seg-in", 6.3, 7.9);
+
+    // seg2 lost mid-path
+    tl.to("#s5-seg2 .s5-seg-in", { opacity: 0, scale: 0.55, duration: 0.3, ease: "power2.in", transformOrigin: "50% 50%" }, 6.55);
+    tl.fromTo(
+      "#s5-seg2 .s5-seg-in",
+      { filter: "blur(0px)" },
+      { filter: "blur(7px)", duration: 0.3 },
+      6.55,
+    );
+    // segs 1 and 3 land
+    tl.to("#s5-seg1 .s5-seg-in", { opacity: 0, scale: 0.7, duration: 0.25, transformOrigin: "50% 50%" }, 6.5);
+    tl.to("#s5-seg3 .s5-seg-in", { opacity: 0, scale: 0.7, duration: 0.25, transformOrigin: "50% 50%" }, 7.9);
+
+    // retry
+    segRun("#s5-seg2r .s5-seg-in", 7.4, 8.55);
+    tl.to("#s5-seg2r .s5-seg-in", { opacity: 0, scale: 0.7, duration: 0.25, transformOrigin: "50% 50%" }, 8.55);
+    tl.fromTo(
+      "#s5-lane-tcp .s5-check",
+      { opacity: 0, scale: 0.5, transformOrigin: "50% 50%" },
+      { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(1.8)" },
+      8.35,
+    );
+
+    // UDP lane
+    tl.fromTo(
+      "#s5-lane-udp .s5-udp-in",
+      { opacity: 0 },
+      { opacity: 1, duration: 0.4 },
+      8.65,
+    );
+    tl.fromTo(
+      "#s5-lane-udp .s5-udp-label",
+      { opacity: 0, y: 10 },
+      { opacity: 1, y: 0, duration: 0.35 },
+      8.85,
+    );
+    segRun("#s5-dg1 .s5-seg-in", 8.85, 9.75);
+    segRun("#s5-dg2 .s5-seg-in", 9.45, 10.35);
+    segRun("#s5-dg3 .s5-seg-in", 10.05, 10.95);
+    tl.to("#s5-dg1 .s5-seg-in", { opacity: 0, scale: 0.7, duration: 0.2, transformOrigin: "50% 50%" }, 9.75);
+    // dg2 lost without retry
+    tl.to("#s5-dg2 .s5-seg-in", { opacity: 0, scale: 0.55, duration: 0.3, ease: "power2.in", transformOrigin: "50% 50%" }, 10.15);
+    tl.to("#s5-dg3 .s5-seg-in", { opacity: 0, scale: 0.7, duration: 0.2, transformOrigin: "50% 50%" }, 10.95);
+    tl.fromTo(
+      "#s5-lane-udp .s5-udp-warn",
+      { opacity: 0, y: 10 },
+      { opacity: 1, y: 0, duration: 0.4 },
+      10.7,
+    );
+
+    // split into two branches
+    tl.fromTo(
+      "#s5-split .s5-split-in",
+      { opacity: 0 },
+      { opacity: 1, duration: 0.35 },
+      11.45,
+    );
+    tl.fromTo(
+      "#s5-split .s5-split-in > div",
+      { opacity: 0, x: -30, filter: "blur(6px)" },
+      { opacity: 1, x: 0, filter: "blur(0px)", duration: 0.5, stagger: 0.18, ease: "power3.out" },
+      11.55,
+    );
+
+    window.__timelines["s5"] = tl;
+    tl.seek(0);
+  </script>
+</template>

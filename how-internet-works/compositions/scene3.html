@@ -1,0 +1,315 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      background: radial-gradient(1400px 900px at 55% 35%, #12203c 0%, #0a1122 55%, #070b16 100%);
+      font-family: Inter, sans-serif;
+      color: #e9f1ff;
+    }
+    .cam {
+      position: absolute;
+      inset: 0;
+    }
+    .mono {
+      font-family: "JetBrains Mono", monospace;
+    }
+    .label {
+      font-family: "JetBrains Mono", monospace;
+      font-size: 30px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #8fb0d8;
+    }
+    .node-box {
+      width: 240px;
+      height: 150px;
+      border-radius: 22px;
+      background: linear-gradient(160deg, #16243e, #101b30);
+      border: 1.5px solid #31496f;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 22px 60px rgba(2, 8, 23, 0.75);
+    }
+    .node-box svg {
+      width: 84px;
+      height: 84px;
+    }
+    .chip {
+      padding: 18px 34px;
+      border-radius: 16px;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 28px;
+      white-space: nowrap;
+    }
+    .chip-domain {
+      background: rgba(139, 124, 255, 0.16);
+      border: 2px solid #8b7cff;
+      color: #cfc6ff;
+      box-shadow: 0 0 44px rgba(139, 124, 255, 0.35), 0 16px 40px rgba(2, 8, 23, 0.6);
+    }
+    .chip-ip {
+      background: rgba(53, 214, 255, 0.16);
+      border: 2px solid #35d6ff;
+      color: #a5ecff;
+      box-shadow: 0 0 44px rgba(53, 214, 255, 0.4), 0 16px 40px rgba(2, 8, 23, 0.6);
+    }
+    .link {
+      stroke: #2c456e;
+      stroke-width: 3.5;
+      fill: none;
+      stroke-dasharray: 10 12;
+    }
+    .pulse-dot {
+      fill: #35d6ff;
+    }
+    .addr-bar {
+      width: 1100px;
+      height: 92px;
+      border-radius: 46px;
+      background: #0e1a30;
+      border: 1.5px solid #2b3f63;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 24px 70px rgba(2, 8, 23, 0.7);
+    }
+    .dest-card {
+      width: 640px;
+      border-radius: 22px;
+      background: linear-gradient(160deg, #16243e, #101b30);
+      border: 1.5px solid #31496f;
+      padding: 30px 38px;
+      box-shadow: 0 26px 80px rgba(2, 8, 23, 0.75);
+    }
+  </style>
+
+  <div id="root" data-composition-id="s3" data-width="1920" data-height="1080">
+    <div id="s3-cam" class="cam">
+      <!-- address bar motif -->
+      <div id="s3-addr" class="clip" data-start="0" data-duration="2.9" data-track-index="1" style="position: absolute; left: 410px; top: 110px">
+        <div class="addr-bar s3-addr-in">
+          <div class="chip chip-domain" id="s3-domain">example.com</div>
+        </div>
+      </div>
+
+      <!-- flying domain chip -->
+      <div id="s3-qchip" class="clip" data-start="1.9" data-duration="4.2" data-track-index="2" style="position: absolute; left: 0; top: 0">
+        <div class="s3-qchip-in" style="position: absolute; left: 795px; top: 124px; z-index: 5">
+          <div class="chip chip-domain">example.com</div>
+        </div>
+      </div>
+
+      <!-- chain: browser -> resolver -> dns server -->
+      <svg id="s3-links" class="clip" data-start="2.1" data-duration="12.9" data-track-index="3" width="1920" height="1080" style="position: absolute; inset: 0">
+        <path class="link s3-link" d="M 420 545 H 790" />
+        <path class="link s3-link" d="M 1050 545 H 1420" />
+      </svg>
+
+      <div id="s3-browser" class="clip node" data-start="1.7" data-duration="13.3" data-track-index="4" style="position: absolute; left: 175px; top: 470px">
+        <div class="node-box s3-node-in">
+          <svg viewBox="0 0 84 84" fill="none">
+            <rect x="12" y="16" width="60" height="42" rx="7" stroke="#7fd8ff" stroke-width="4" />
+            <path d="M 6 70 H 78" stroke="#7fd8ff" stroke-width="4" stroke-linecap="round" />
+            <circle cx="22" cy="26" r="3" fill="#8b7cff" />
+            <circle cx="32" cy="26" r="3" fill="#35d6ff" />
+          </svg>
+        </div>
+        <div class="label s3-node-label" style="margin-top: 16px">Browser</div>
+      </div>
+
+      <div id="s3-resolver" class="clip node" data-start="2.9" data-duration="12.1" data-track-index="5" style="position: absolute; left: 805px; top: 470px">
+        <div class="node-box s3-node-in">
+          <svg viewBox="0 0 84 84" fill="none">
+            <circle cx="42" cy="42" r="26" stroke="#8b7cff" stroke-width="4" />
+            <circle cx="42" cy="42" r="10" fill="rgba(139,124,255,0.4)" />
+            <path d="M 42 16 V 4 M 42 80 V 68 M 16 42 H 4 M 80 42 H 68" stroke="#8b7cff" stroke-width="4" stroke-linecap="round" />
+          </svg>
+        </div>
+        <div class="label s3-node-label" style="margin-top: 16px">DNS resolver</div>
+      </div>
+
+      <div id="s3-dns" class="clip node" data-start="4.2" data-duration="10.8" data-track-index="6" style="position: absolute; left: 1435px; top: 470px">
+        <div class="node-box s3-node-in">
+          <svg viewBox="0 0 84 84" fill="none">
+            <rect x="14" y="14" width="56" height="16" rx="5" stroke="#35d6ff" stroke-width="4" />
+            <rect x="14" y="36" width="56" height="16" rx="5" stroke="#35d6ff" stroke-width="4" />
+            <rect x="14" y="58" width="56" height="12" rx="5" fill="rgba(53,214,255,0.3)" />
+          </svg>
+        </div>
+        <div class="label s3-node-label" style="margin-top: 16px">DNS server</div>
+      </div>
+
+      <!-- query dots -->
+      <div id="s3-dot1" class="clip" data-start="3.3" data-duration="1.5" data-track-index="7" style="position: absolute; left: 445px; top: 533px">
+        <svg width="24" height="24"><circle class="pulse-dot s3-dot-in" cx="12" cy="12" r="10" /></svg>
+      </div>
+      <div id="s3-dot2" class="clip" data-start="4.9" data-duration="1.5" data-track-index="7" style="position: absolute; left: 1075px; top: 533px">
+        <svg width="24" height="24"><circle class="pulse-dot s3-dot-in" cx="12" cy="12" r="10" /></svg>
+      </div>
+
+      <!-- IP answer chip -->
+      <div id="s3-ipchip" class="clip" data-start="6.4" data-duration="3.6" data-track-index="8" style="position: absolute; left: 0; top: 0">
+        <div class="s3-ipchip-in" style="position: absolute; left: 1480px; top: 520px">
+          <div class="chip chip-ip">203.0.113.42</div>
+          <div class="label s3-ip-note" style="margin-top: 12px; text-align: center">Example IP — illustrative</div>
+        </div>
+      </div>
+
+      <!-- destination card on the request packet -->
+      <div id="s3-dest" class="clip" data-start="9.8" data-duration="5.2" data-track-index="9" style="position: absolute; left: 640px; top: 760px">
+        <div class="dest-card s3-dest-in">
+          <div class="label" style="margin-bottom: 14px">Request packet</div>
+          <div class="mono" style="font-size: 30px; color: #cfe4ff">DESTINATION:</div>
+          <div class="mono s3-dest-ip" style="font-size: 40px; color: #35d6ff; margin-top: 8px">203.0.113.42</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const tl = gsap.timeline({ paused: true });
+
+    // address bar with domain
+    tl.fromTo(
+      "#s3-addr .s3-addr-in",
+      { opacity: 0, y: -26, filter: "blur(8px)" },
+      { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.55, ease: "power3.out" },
+      0.1,
+    );
+
+    // domain chip lifts out and becomes a query
+    tl.fromTo(
+      "#s3-qchip .s3-qchip-in",
+      { opacity: 0, scale: 1.15, y: 0, filter: "blur(6px)", transformOrigin: "50% 50%" },
+      { opacity: 1, scale: 1, y: 150, filter: "blur(0px)", duration: 0.9, ease: "power2.inOut" },
+      1.95,
+    );
+    tl.to("#s3-addr .s3-addr-in", { opacity: 0.25, duration: 0.5 }, 2.1);
+
+    // chain builds progressively
+    tl.fromTo(
+      "#s3-links",
+      { opacity: 0 },
+      { opacity: 1, duration: 0.4 },
+      2.1,
+    );
+    tl.fromTo(
+      "#s3-browser .s3-node-in",
+      { opacity: 0, x: -50, filter: "blur(8px)" },
+      { opacity: 1, x: 0, filter: "blur(0px)", duration: 0.55, ease: "power3.out" },
+      1.75,
+    );
+    tl.fromTo(
+      "#s3-browser .s3-node-label",
+      { opacity: 0, y: 10 },
+      { opacity: 1, y: 0, duration: 0.4 },
+      2.2,
+    );
+    tl.fromTo(
+      "#s3-resolver .s3-node-in",
+      { opacity: 0, scale: 0.7, filter: "blur(8px)", transformOrigin: "50% 50%" },
+      { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.55, ease: "back.out(1.4)" },
+      2.95,
+    );
+    tl.fromTo(
+      "#s3-resolver .s3-node-label",
+      { opacity: 0, y: 10 },
+      { opacity: 1, y: 0, duration: 0.4 },
+      3.35,
+    );
+    tl.fromTo(
+      "#s3-dns .s3-node-in",
+      { opacity: 0, scale: 0.7, filter: "blur(8px)", transformOrigin: "50% 50%" },
+      { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.55, ease: "back.out(1.4)" },
+      4.25,
+    );
+    tl.fromTo(
+      "#s3-dns .s3-node-label",
+      { opacity: 0, y: 10 },
+      { opacity: 1, y: 0, duration: 0.4 },
+      4.65,
+    );
+
+    // query chip travels browser -> resolver -> server
+    tl.to(
+      "#s3-qchip .s3-qchip-in",
+      { x: -35, y: 389, duration: 1.2, ease: "power1.inOut" },
+      3.1,
+    );
+    tl.to(
+      "#s3-qchip .s3-qchip-in",
+      { x: 595, y: 389, duration: 1.2, ease: "power1.inOut" },
+      4.6,
+    );
+    tl.to("#s3-qchip .s3-qchip-in", { opacity: 0, duration: 0.3 }, 5.85);
+
+    // query dots along the links
+    tl.fromTo(
+      "#s3-dot1 .s3-dot-in",
+      { opacity: 1, x: 0 },
+      { x: 330, opacity: 0, duration: 1.3, ease: "power1.in" },
+      3.35,
+    );
+    tl.fromTo(
+      "#s3-dot2 .s3-dot-in",
+      { opacity: 1, x: 0 },
+      { x: 330, opacity: 0, duration: 1.3, ease: "power1.in" },
+      4.95,
+    );
+
+    // DNS server processes (pulse rings)
+    tl.to(
+      "#s3-dns .s3-node-in",
+      { scale: 1.07, duration: 0.5, yoyo: true, repeat: 3, ease: "sine.inOut", transformOrigin: "50% 50%" },
+      5.6,
+    );
+
+    // IP answer returns
+    tl.fromTo(
+      "#s3-ipchip .s3-ipchip-in",
+      { opacity: 0, x: 0, scale: 0.8, filter: "blur(6px)", transformOrigin: "50% 50%" },
+      { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.5, ease: "power3.out" },
+      6.5,
+    );
+    tl.to(
+      "#s3-ipchip .s3-ipchip-in",
+      { x: -780, y: 280, duration: 1.5, ease: "power1.inOut" },
+      7.3,
+    );
+    tl.to("#s3-ipchip .s3-ipchip-in", { opacity: 0, scale: 0.85, duration: 0.35 }, 8.85);
+
+    // destination card appears on the request packet
+    tl.fromTo(
+      "#s3-dest .s3-dest-in",
+      { opacity: 0, y: 40, filter: "blur(8px)" },
+      { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.55, ease: "power3.out" },
+      9.85,
+    );
+    tl.fromTo(
+      "#s3-dest .s3-dest-ip",
+      { opacity: 0 },
+      { opacity: 1, duration: 0.45 },
+      10.5,
+    );
+
+    // the packet continues toward the network; camera follows slightly
+    tl.fromTo(
+      "#s3-dest .s3-dest-in",
+      { x: 0 },
+      { x: 210, duration: 2.2, ease: "power1.inOut" },
+      11.6,
+    );
+    tl.fromTo(
+      "#s3-cam",
+      { scale: 1, x: 0, transformOrigin: "50% 55%" },
+      { scale: 0.94, x: -34, duration: 2.4, ease: "power1.inOut" },
+      11.4,
+    );
+
+    window.__timelines["s3"] = tl;
+    tl.seek(0);
+  </script>
+</template>

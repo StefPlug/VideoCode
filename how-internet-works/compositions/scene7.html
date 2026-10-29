@@ -1,0 +1,311 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      background: radial-gradient(1400px 900px at 45% 45%, #12203c 0%, #0a1122 55%, #070b16 100%);
+      font-family: Inter, sans-serif;
+      color: #e9f1ff;
+    }
+    .cam {
+      position: absolute;
+      inset: 0;
+    }
+    .mono {
+      font-family: "JetBrains Mono", monospace;
+    }
+    .label {
+      font-family: "JetBrains Mono", monospace;
+      font-size: 28px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #8fb0d8;
+    }
+    .chassis {
+      position: absolute;
+      left: 500px;
+      top: 120px;
+      width: 960px;
+      height: 860px;
+      border-radius: 34px;
+      border: 2.5px dashed #35527e;
+    }
+    .block {
+      border-radius: 20px;
+      background: linear-gradient(160deg, #16243e, #101b30);
+      border: 1.5px solid #31496f;
+      box-shadow: 0 22px 60px rgba(2, 8, 23, 0.72);
+    }
+    .chip {
+      padding: 15px 30px;
+      border-radius: 14px;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 28px;
+      white-space: nowrap;
+    }
+    .chip-get {
+      background: rgba(53, 214, 255, 0.15);
+      border: 2px solid #35d6ff;
+      color: #a5ecff;
+      box-shadow: 0 0 34px rgba(53, 214, 255, 0.35);
+    }
+    .chip-json {
+      background: rgba(52, 211, 153, 0.13);
+      border: 2px solid #34d399;
+      color: #b8f3dc;
+      box-shadow: 0 0 34px rgba(52, 211, 153, 0.3);
+    }
+    .arrow {
+      stroke: #3a5c8e;
+      stroke-width: 4;
+      fill: none;
+      stroke-linecap: round;
+      marker-end: url(#s7-arrowhead);
+    }
+    .db-row {
+      font-family: "JetBrains Mono", monospace;
+      font-size: 28px;
+      color: #cfe4ff;
+      white-space: nowrap;
+    }
+  </style>
+
+  <div id="root" data-composition-id="s7" data-width="1920" data-height="1080">
+    <div id="s7-cam" class="cam">
+      <!-- server chassis -->
+      <div id="s7-chassis" class="clip" data-start="0.1" data-duration="19.9" data-track-index="1" style="position: absolute; inset: 0">
+        <div class="chassis s7-chassis-in"></div>
+        <div class="label s7-chassis-label" style="position: absolute; left: 528px; top: 150px">Server</div>
+      </div>
+
+      <!-- API / SERVER LOGIC -->
+      <div id="s7-api" class="clip" data-start="0.7" data-duration="19.3" data-track-index="2" style="position: absolute; left: 560px; top: 230px">
+        <div class="block s7-block-in" style="width: 840px; height: 170px; display: flex; align-items: center; padding: 0 42px">
+          <div>
+            <div class="mono" style="font-size: 34px; color: #cfe4ff">API / SERVER LOGIC</div>
+            <div class="label" style="margin-top: 10px">Handles the request</div>
+          </div>
+          <div class="s7-api-glow" style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; border-radius: 20px; background: linear-gradient(90deg, transparent, rgba(53, 214, 255, 0.18), transparent); opacity: 0"></div>
+        </div>
+      </div>
+
+      <!-- arrow api -> db -->
+      <svg id="s7-arrow1" class="clip" data-start="5.7" data-duration="14.3" data-track-index="3" width="1920" height="1080" style="position: absolute; inset: 0">
+        <defs>
+          <marker id="s7-arrowhead" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="#3a5c8e" />
+          </marker>
+        </defs>
+        <path class="arrow s7-arr" d="M 980 420 V 480" />
+      </svg>
+      <svg id="s7-arrow2" class="clip" data-start="10.9" data-duration="9.1" data-track-index="3" width="1920" height="1080" style="position: absolute; inset: 0">
+        <path class="arrow s7-arr" d="M 1120 700 V 640" />
+      </svg>
+
+      <!-- DATABASE -->
+      <div id="s7-db" class="clip" data-start="1.4" data-duration="18.6" data-track-index="4" style="position: absolute; left: 620px; top: 490px">
+        <div class="block s7-block-in" style="width: 720px; height: 215px; padding: 28px 40px">
+          <div style="display: flex; align-items: center; gap: 22px">
+            <svg width="58" height="58" viewBox="0 0 58 58" fill="none">
+              <ellipse cx="29" cy="14" rx="20" ry="8" stroke="#8b7cff" stroke-width="3.5" />
+              <path d="M 9 14 V 44 C 9 48.4 18.1 52 29 52 C 39.9 52 49 48.4 49 44 V 14" stroke="#8b7cff" stroke-width="3.5" />
+            </svg>
+            <div class="label">Database</div>
+          </div>
+          <div style="margin-top: 18px">
+            <div class="db-row s7-row1">id: 1, name: "Keyboard"</div>
+            <div class="db-row s7-row2" style="margin-top: 10px">id: 2, name: "Mouse"</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RESPONSE block -->
+      <div id="s7-resp" class="clip" data-start="2" data-duration="18" data-track-index="5" style="position: absolute; left: 560px; top: 730px">
+        <div class="block s7-block-in" style="width: 840px; height: 170px; padding: 26px 42px">
+          <div class="label" style="margin-bottom: 12px">Response</div>
+          <div class="mono" id="s7-json" style="font-size: 30px; color: #b8f3dc">{"products":["Keyboard","Mouse"]}</div>
+        </div>
+      </div>
+
+      <!-- incoming GET chip -->
+      <div id="s7-get" class="clip" data-start="2.7" data-duration="2.4" data-track-index="6" style="position: absolute; left: 60px; top: 295px">
+        <div class="chip chip-get s7-get-in">GET /api/products</div>
+      </div>
+
+      <!-- outgoing JSON packet -->
+      <div id="s7-jsonpkt" class="clip" data-start="13.7" data-duration="2.6" data-track-index="7" style="position: absolute; left: 700px; top: 770px">
+        <div class="chip chip-json s7-jsonpkt-in">{"products":["Keyboard","Mouse"]}</div>
+      </div>
+
+      <!-- FTP side card -->
+      <div id="s7-ftp" class="clip" data-start="15.9" data-duration="4.1" data-track-index="8" style="position: absolute; left: 1440px; top: 320px">
+        <div class="s7-ftp-in" style="width: 430px; border-radius: 20px; background: #101b30; border: 1.5px solid #31496f; padding: 28px 30px; box-shadow: 0 24px 70px rgba(2, 8, 23, 0.72)">
+          <div class="label" style="color: #fbbf24">FTP — file transfer</div>
+          <div style="position: relative; height: 190px; margin-top: 22px">
+            <div style="position: absolute; left: 8px; top: 40px; width: 92px; height: 120px; border-radius: 12px; border: 2px solid #3a5c8e"></div>
+            <div style="position: absolute; right: 8px; top: 40px; width: 92px; height: 120px; border-radius: 12px; border: 2px solid #3a5c8e"></div>
+            <div class="s7-file" style="position: absolute; left: 40px; top: 72px; width: 56px; height: 70px; border-radius: 8px; background: rgba(251, 191, 36, 0.25); border: 2px solid #fbbf24"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // typewriter helpers (deterministic DOM build at init)
+    function splitChars(el) {
+      const text = el.textContent;
+      el.textContent = "";
+      const spans = [];
+      for (const ch of text) {
+        const s = document.createElement("span");
+        s.textContent = ch;
+        s.style.opacity = "0";
+        el.appendChild(s);
+        spans.push(s);
+      }
+      return spans;
+    }
+    splitChars(document.getElementById("s7-json"));
+    splitChars(document.querySelector(".s7-row1"));
+    splitChars(document.querySelector(".s7-row2"));
+
+    const tl = gsap.timeline({ paused: true });
+
+    // chassis draws in
+    tl.fromTo(
+      "#s7-chassis .s7-chassis-in",
+      { opacity: 0, scale: 0.96, filter: "blur(8px)", transformOrigin: "50% 50%" },
+      { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.6, ease: "power3.out" },
+      0.15,
+    );
+    tl.fromTo(
+      "#s7-chassis .s7-chassis-label",
+      { opacity: 0, y: 10 },
+      { opacity: 1, y: 0, duration: 0.4 },
+      0.55,
+    );
+
+    // blocks appear one by one
+    tl.fromTo(
+      "#s7-api .s7-block-in",
+      { opacity: 0, y: 34, filter: "blur(8px)" },
+      { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.55, ease: "power3.out" },
+      0.8,
+    );
+    tl.fromTo(
+      "#s7-db .s7-block-in",
+      { opacity: 0, y: 34, filter: "blur(8px)" },
+      { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.55, ease: "power3.out" },
+      1.5,
+    );
+    tl.fromTo(
+      "#s7-resp .s7-block-in",
+      { opacity: 0, y: 34, filter: "blur(8px)" },
+      { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.55, ease: "power3.out" },
+      2.1,
+    );
+
+    // GET chip flies in
+    tl.fromTo(
+      "#s7-get .s7-get-in",
+      { opacity: 0, x: -120, filter: "blur(6px)" },
+      { opacity: 1, x: 0, filter: "blur(0px)", duration: 0.5, ease: "power2.out" },
+      2.75,
+    );
+    tl.to("#s7-get .s7-get-in", { x: 700, y: 20, duration: 1.0, ease: "power1.inOut" }, 3.27);
+    tl.to("#s7-get .s7-get-in", { opacity: 0, scale: 0.8, duration: 0.3, transformOrigin: "50% 50%" }, 4.32);
+
+    // API block pulses and lights up
+    tl.to(
+      "#s7-api .s7-block-in",
+      { scale: 1.05, duration: 0.25, yoyo: true, repeat: 1, ease: "sine.inOut", transformOrigin: "50% 50%" },
+      4.3,
+    );
+    tl.fromTo(
+      "#s7-api .s7-api-glow",
+      { opacity: 0, x: -300 },
+      { opacity: 1, x: 300, duration: 0.9, ease: "power1.inOut" },
+      5.15,
+    );
+    tl.to("#s7-api .s7-api-glow", { opacity: 0, duration: 0.3 }, 6.05);
+
+    // arrow to DB + DB pulses
+    tl.fromTo(
+      "#s7-arrow1 .s7-arr",
+      { strokeDashoffset: 80, strokeDasharray: 80, opacity: 0 },
+      { strokeDashoffset: 0, opacity: 1, duration: 0.5, ease: "power2.out" },
+      5.75,
+    );
+    tl.fromTo(
+      "#s7-db .s7-block-in",
+      { scale: 1, transformOrigin: "50% 50%" },
+      { scale: 1.04, duration: 0.3, yoyo: true, repeat: 3, ease: "sine.inOut" },
+      6.3,
+    );
+
+    // DB rows type in
+    tl.fromTo(
+      ".s7-row1 span",
+      { opacity: 0 },
+      { opacity: 1, duration: 0.03, stagger: 0.055, ease: "none" },
+      8.3,
+    );
+    tl.fromTo(
+      ".s7-row2 span",
+      { opacity: 0 },
+      { opacity: 1, duration: 0.03, stagger: 0.055, ease: "none" },
+      9.5,
+    );
+
+    // results flow back to response
+    tl.fromTo(
+      "#s7-arrow2 .s7-arr",
+      { strokeDashoffset: 80, strokeDasharray: 80, opacity: 0 },
+      { strokeDashoffset: 0, opacity: 1, duration: 0.45, ease: "power2.out" },
+      10.95,
+    );
+
+    // JSON types in the response block
+    tl.fromTo(
+      "#s7-json span",
+      { opacity: 0 },
+      { opacity: 1, duration: 0.03, stagger: 0.045, ease: "none" },
+      11.8,
+    );
+
+    // JSON condenses into a packet and flies back to the client
+    tl.fromTo(
+      "#s7-jsonpkt .s7-jsonpkt-in",
+      { opacity: 0, scale: 0.7, filter: "blur(6px)", transformOrigin: "50% 50%" },
+      { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.4, ease: "back.out(1.5)" },
+      13.8,
+    );
+    tl.to("#s7-jsonpkt .s7-jsonpkt-in", { x: -620, y: -120, duration: 1.15, ease: "power1.inOut" }, 14.15);
+    tl.to("#s7-jsonpkt .s7-jsonpkt-in", { opacity: 0, duration: 0.3 }, 15.35);
+
+    // FTP side card
+    tl.fromTo(
+      "#s7-ftp .s7-ftp-in",
+      { opacity: 0, x: 90, filter: "blur(8px)" },
+      { opacity: 1, x: 0, filter: "blur(0px)", duration: 0.65, ease: "power3.out" },
+      16.0,
+    );
+    tl.fromTo(
+      "#s7-ftp .s7-file",
+      { x: 0 },
+      { x: 280, duration: 1.15, ease: "power1.inOut" },
+      17.0,
+    );
+    // FTP recedes to the background
+    tl.to(
+      "#s7-ftp .s7-ftp-in",
+      { opacity: 0.28, scale: 0.88, x: -30, duration: 0.7, ease: "power2.inOut", transformOrigin: "50% 50%" },
+      18.6,
+    );
+
+    window.__timelines["s7"] = tl;
+    tl.seek(0);
+  </script>
+</template>

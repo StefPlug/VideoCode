@@ -1,0 +1,309 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      background: radial-gradient(1500px 950px at 50% 50%, #12203c 0%, #0a1122 55%, #070b16 100%);
+      font-family: Inter, sans-serif;
+      color: #e9f1ff;
+    }
+    .cam {
+      position: absolute;
+      inset: 0;
+    }
+    .mono {
+      font-family: "JetBrains Mono", monospace;
+    }
+    .label {
+      font-family: "JetBrains Mono", monospace;
+      font-size: 28px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #8fb0d8;
+    }
+    .label-big {
+      font-family: "JetBrains Mono", monospace;
+      font-size: 32px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #cfe4ff;
+    }
+    .router {
+      width: 120px;
+      height: 96px;
+      border-radius: 18px;
+      background: linear-gradient(160deg, #16243e, #101b30);
+      border: 2px solid #35527e;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 18px 48px rgba(2, 8, 23, 0.7);
+    }
+    .router svg {
+      width: 58px;
+      height: 58px;
+    }
+    .pkt {
+      padding: 13px 24px;
+      border-radius: 13px;
+      background: rgba(53, 214, 255, 0.16);
+      border: 2px solid #35d6ff;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 28px;
+      color: #a5ecff;
+      box-shadow: 0 0 34px rgba(53, 214, 255, 0.4), 0 12px 30px rgba(2, 8, 23, 0.6);
+      white-space: nowrap;
+    }
+    .big-request {
+      padding: 30px 56px;
+      border-radius: 22px;
+      background: linear-gradient(135deg, rgba(53, 214, 255, 0.2), rgba(53, 214, 255, 0.07));
+      border: 2.5px solid #35d6ff;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 44px;
+      letter-spacing: 0.16em;
+      color: #a5ecff;
+      box-shadow: 0 0 80px rgba(53, 214, 255, 0.4), 0 26px 70px rgba(2, 8, 23, 0.7);
+    }
+    .ip-mini {
+      font-family: "JetBrains Mono", monospace;
+      font-size: 28px;
+      letter-spacing: 0.12em;
+      color: #7fa8d8;
+    }
+    .mesh-line {
+      stroke: #2c456e;
+      stroke-width: 3.5;
+      fill: none;
+      stroke-linecap: round;
+    }
+    .endpoint {
+      width: 170px;
+      height: 115px;
+      border-radius: 18px;
+      background: linear-gradient(160deg, #16243e, #101b30);
+      border: 2px solid #31496f;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 18px 50px rgba(2, 8, 23, 0.7);
+    }
+  </style>
+
+  <div id="root" data-composition-id="s4" data-width="1920" data-height="1080">
+    <div id="s4-cam" class="cam">
+      <!-- network map -->
+      <svg id="s4-map" class="clip" data-start="2.3" data-duration="13.7" data-track-index="1" width="1920" height="1080" style="position: absolute; inset: 0">
+        <path class="mesh-line s4-mline" d="M 350 520 L 520 380" />
+        <path class="mesh-line s4-mline" d="M 350 520 L 520 660" />
+        <path class="mesh-line s4-mline" d="M 520 380 L 820 300" />
+        <path class="mesh-line s4-mline" d="M 520 380 L 860 620" />
+        <path class="mesh-line s4-mline" d="M 520 660 L 860 620" />
+        <path class="mesh-line s4-mline" d="M 820 300 L 1150 430" />
+        <path class="mesh-line s4-mline" d="M 860 620 L 1150 430" />
+        <path class="mesh-line s4-mline" d="M 860 620 L 1180 700" />
+        <path class="mesh-line s4-mline" d="M 1150 430 L 1420 320" />
+        <path class="mesh-line s4-mline" d="M 1150 430 L 1450 650" />
+        <path class="mesh-line s4-mline" d="M 1180 700 L 1450 650" />
+        <path class="mesh-line s4-mline" d="M 1420 320 L 1620 470" />
+        <path class="mesh-line s4-mline" d="M 1450 650 L 1620 470" />
+      </svg>
+
+      <!-- endpoints -->
+      <div id="s4-client" class="clip" data-start="2.3" data-duration="13.7" data-track-index="2" style="position: absolute; left: 195px; top: 462px">
+        <div class="endpoint s4-ep-in">
+          <svg width="70" height="70" viewBox="0 0 84 84" fill="none">
+            <rect x="12" y="16" width="60" height="42" rx="7" stroke="#7fd8ff" stroke-width="4" />
+            <path d="M 6 70 H 78" stroke="#7fd8ff" stroke-width="4" stroke-linecap="round" />
+          </svg>
+        </div>
+        <div class="label s4-ep-label" style="margin-top: 14px">Client</div>
+      </div>
+      <div id="s4-server" class="clip" data-start="2.3" data-duration="13.7" data-track-index="3" style="position: absolute; left: 1545px; top: 412px">
+        <div class="endpoint s4-ep-in">
+          <svg width="70" height="70" viewBox="0 0 84 84" fill="none">
+            <rect x="16" y="12" width="52" height="18" rx="5" stroke="#8b7cff" stroke-width="4" />
+            <rect x="16" y="38" width="52" height="18" rx="5" stroke="#8b7cff" stroke-width="4" />
+            <circle cx="27" cy="21" r="3.4" fill="#35d6ff" />
+            <circle cx="27" cy="47" r="3.4" fill="#35d6ff" />
+          </svg>
+        </div>
+        <div class="label s4-ep-label" style="margin-top: 14px">Server</div>
+      </div>
+
+      <!-- routers -->
+      <div id="s4-n1" class="clip" data-start="2.9" data-duration="13.1" data-track-index="4" style="position: absolute; left: 460px; top: 332px">
+        <div class="router s4-node-in"><svg viewBox="0 0 58 58" fill="none"><rect x="6" y="24" width="46" height="22" rx="7" stroke="#8b7cff" stroke-width="3.5" /><circle cx="17" cy="35" r="3" fill="#35d6ff" /><path d="M 18 18 C 24 10, 34 10, 40 18" stroke="#8b7cff" stroke-width="3.5" stroke-linecap="round" /></svg></div>
+      </div>
+      <div id="s4-n2" class="clip" data-start="3.15" data-duration="12.85" data-track-index="5" style="position: absolute; left: 760px; top: 252px">
+        <div class="router s4-node-in"><svg viewBox="0 0 58 58" fill="none"><rect x="6" y="24" width="46" height="22" rx="7" stroke="#8b7cff" stroke-width="3.5" /><circle cx="17" cy="35" r="3" fill="#35d6ff" /><path d="M 18 18 C 24 10, 34 10, 40 18" stroke="#8b7cff" stroke-width="3.5" stroke-linecap="round" /></svg></div>
+      </div>
+      <div id="s4-n3" class="clip" data-start="3.4" data-duration="12.6" data-track-index="6" style="position: absolute; left: 800px; top: 572px">
+        <div class="router s4-node-in"><svg viewBox="0 0 58 58" fill="none"><rect x="6" y="24" width="46" height="22" rx="7" stroke="#8b7cff" stroke-width="3.5" /><circle cx="17" cy="35" r="3" fill="#35d6ff" /><path d="M 18 18 C 24 10, 34 10, 40 18" stroke="#8b7cff" stroke-width="3.5" stroke-linecap="round" /></svg></div>
+      </div>
+      <div id="s4-n4" class="clip" data-start="3.65" data-duration="12.35" data-track-index="7" style="position: absolute; left: 1090px; top: 382px">
+        <div class="router s4-node-in"><svg viewBox="0 0 58 58" fill="none"><rect x="6" y="24" width="46" height="22" rx="7" stroke="#8b7cff" stroke-width="3.5" /><circle cx="17" cy="35" r="3" fill="#35d6ff" /><path d="M 18 18 C 24 10, 34 10, 40 18" stroke="#8b7cff" stroke-width="3.5" stroke-linecap="round" /></svg></div>
+      </div>
+      <div id="s4-n5" class="clip" data-start="3.9" data-duration="12.1" data-track-index="8" style="position: absolute; left: 1360px; top: 272px">
+        <div class="router s4-node-in"><svg viewBox="0 0 58 58" fill="none"><rect x="6" y="24" width="46" height="22" rx="7" stroke="#8b7cff" stroke-width="3.5" /><circle cx="17" cy="35" r="3" fill="#35d6ff" /><path d="M 18 18 C 24 10, 34 10, 40 18" stroke="#8b7cff" stroke-width="3.5" stroke-linecap="round" /></svg></div>
+      </div>
+      <div id="s4-n6" class="clip" data-start="4.15" data-duration="11.85" data-track-index="9" style="position: absolute; left: 1390px; top: 602px">
+        <div class="router s4-node-in"><svg viewBox="0 0 58 58" fill="none"><rect x="6" y="24" width="46" height="22" rx="7" stroke="#8b7cff" stroke-width="3.5" /><circle cx="17" cy="35" r="3" fill="#35d6ff" /><path d="M 18 18 C 24 10, 34 10, 40 18" stroke="#8b7cff" stroke-width="3.5" stroke-linecap="round" /></svg></div>
+      </div>
+
+      <!-- the big request card that splits -->
+      <div id="s4-bigreq" class="clip" data-start="0" data-duration="3.2" data-track-index="10" style="position: absolute; left: 720px; top: 455px">
+        <div class="s4-big-in" style="position: relative">
+          <div class="big-request">REQUEST</div>
+          <div class="ip-mini s4-ip-src" style="position: absolute; left: 0; top: -46px">IP SOURCE: 192.0.2.7</div>
+          <div class="ip-mini s4-ip-dst" style="position: absolute; right: 0; bottom: -46px">IP DESTINATION: 203.0.113.42</div>
+        </div>
+      </div>
+
+      <!-- packets -->
+      <div id="s4-p1" class="clip" data-start="2.35" data-duration="13.65" data-track-index="11" style="position: absolute; left: 800px; top: 480px">
+        <div class="pkt s4-pkt-in">PKT 1/4</div>
+      </div>
+      <div id="s4-p2" class="clip" data-start="2.55" data-duration="13.45" data-track-index="12" style="position: absolute; left: 800px; top: 480px">
+        <div class="pkt s4-pkt-in">PKT 2/4</div>
+      </div>
+      <div id="s4-p3" class="clip" data-start="2.75" data-duration="13.25" data-track-index="13" style="position: absolute; left: 800px; top: 480px">
+        <div class="pkt s4-pkt-in">PKT 3/4</div>
+      </div>
+      <div id="s4-p4" class="clip" data-start="2.95" data-duration="13.05" data-track-index="14" style="position: absolute; left: 800px; top: 480px">
+        <div class="pkt s4-pkt-in">PKT 4/4</div>
+      </div>
+
+      <!-- label -->
+      <div id="s4-label" class="clip" data-start="13.8" data-duration="2.2" data-track-index="15" style="position: absolute; left: 0; right: 0; top: 880px; display: flex; justify-content: center">
+        <div class="s4-label-in" style="padding: 22px 46px; border-radius: 18px; background: rgba(20, 35, 61, 0.92); border: 1.5px solid #3a5c8e">
+          <div class="label-big">Network layer — IP</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const tl = gsap.timeline({ paused: true });
+
+    // big request present, IP headers appear
+    tl.fromTo(
+      "#s4-bigreq .s4-big-in",
+      { opacity: 0, scale: 0.9, filter: "blur(8px)", transformOrigin: "50% 50%" },
+      { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.6, ease: "power3.out" },
+      0.1,
+    );
+    tl.fromTo(
+      "#s4-bigreq .s4-ip-src",
+      { opacity: 0, y: 10 },
+      { opacity: 1, y: 0, duration: 0.4 },
+      0.55,
+    );
+    tl.fromTo(
+      "#s4-bigreq .s4-ip-dst",
+      { opacity: 0, y: -10 },
+      { opacity: 1, y: 0, duration: 0.4 },
+      0.85,
+    );
+
+    // packets split outward
+    tl.to("#s4-bigreq .s4-big-in", { scale: 1.12, duration: 0.35, ease: "power2.in", transformOrigin: "50% 50%" }, 2.4);
+    tl.to("#s4-bigreq .s4-big-in", { opacity: 0, scale: 1.35, duration: 0.35, ease: "power2.in" }, 2.78);
+
+    // packets burst out of the REQUEST card one by one, then fan out to route starts
+    const burst = (sel, t, x, y) => {
+      tl.fromTo(sel, { opacity: 0, scale: 0.3, x: 130, y: 30, transformOrigin: "50% 50%" },
+        { opacity: 1, scale: 1, x, y, duration: 0.55, ease: "power3.out" }, t);
+    };
+    burst("#s4-p1 .s4-pkt-in", 2.45, -380, -62);
+    burst("#s4-p2 .s4-pkt-in", 2.95, -380, -7);
+    burst("#s4-p3 .s4-pkt-in", 3.45, -380, 47);
+    burst("#s4-p4 .s4-pkt-in", 3.95, -380, 102);
+
+    // map builds
+    tl.fromTo("#s4-map", { opacity: 0 }, { opacity: 1, duration: 0.4 }, 2.3);
+    tl.fromTo(
+      "#s4-map .s4-mline",
+      { strokeDashoffset: 400, strokeDasharray: 400 },
+      { strokeDashoffset: 0, duration: 0.9, stagger: 0.1, ease: "power2.inOut" },
+      2.5,
+    );
+    tl.fromTo(
+      "#s4-client .s4-ep-in, #s4-server .s4-ep-in",
+      { opacity: 0, filter: "blur(8px)", scale: 0.85, transformOrigin: "50% 50%" },
+      { opacity: 1, filter: "blur(0px)", scale: 1, duration: 0.55, stagger: 0.15, ease: "power3.out" },
+      2.35,
+    );
+    tl.fromTo(
+      "#s4-client .s4-ep-label, #s4-server .s4-ep-label",
+      { opacity: 0, y: 10 },
+      { opacity: 1, y: 0, duration: 0.4, stagger: 0.12 },
+      2.8,
+    );
+    tl.fromTo(
+      "#s4-n1 .s4-node-in, #s4-n2 .s4-node-in, #s4-n3 .s4-node-in, #s4-n4 .s4-node-in, #s4-n5 .s4-node-in, #s4-n6 .s4-node-in",
+      { opacity: 0, scale: 0.5, transformOrigin: "50% 50%" },
+      { opacity: 1, scale: 1, duration: 0.45, stagger: 0.16, ease: "back.out(1.5)" },
+      2.95,
+    );
+
+    // packet routes (chained waypoints; each hop eases in-out)
+    // p1: client -> n1 -> n2 -> n4 -> server
+    tl.fromTo("#s4-p1 .s4-pkt-in", { x: -380, y: -62 }, { x: -280, y: -182, duration: 0.8, ease: "power1.inOut", immediateRender: false }, 5.6);
+    tl.to("#s4-p1 .s4-pkt-in", { x: 20, y: -262, duration: 0.8, ease: "power1.inOut" }, 6.6);
+    tl.to("#s4-p1 .s4-pkt-in", { x: 350, y: -132, duration: 0.8, ease: "power1.inOut" }, 7.6);
+    tl.to("#s4-p1 .s4-pkt-in", { x: 820, y: -92, duration: 0.9, ease: "power1.inOut" }, 8.7);
+
+    // p2: client -> n1 -> n3 -> n4 -> n6 -> server
+    tl.fromTo("#s4-p2 .s4-pkt-in", { x: -380, y: -7 }, { x: -280, y: -127, duration: 0.85, ease: "power1.inOut", immediateRender: false }, 5.9);
+    tl.to("#s4-p2 .s4-pkt-in", { x: 60, y: 113, duration: 0.85, ease: "power1.inOut" }, 6.95);
+    tl.to("#s4-p2 .s4-pkt-in", { x: 350, y: -77, duration: 0.85, ease: "power1.inOut" }, 8.0);
+    tl.to("#s4-p2 .s4-pkt-in", { x: 650, y: 143, duration: 0.85, ease: "power1.inOut" }, 9.05);
+    tl.to("#s4-p2 .s4-pkt-in", { x: 820, y: -37, duration: 0.8, ease: "power1.inOut" }, 10.1);
+
+    // p3: client -> n3 -> n4 -> n5 -> server
+    tl.fromTo("#s4-p3 .s4-pkt-in", { x: -380, y: 47 }, { x: 60, y: 167, duration: 1.0, ease: "power1.inOut", immediateRender: false }, 6.2);
+    tl.to("#s4-p3 .s4-pkt-in", { x: 350, y: -23, duration: 0.85, ease: "power1.inOut" }, 7.4);
+    tl.to("#s4-p3 .s4-pkt-in", { x: 620, y: -133, duration: 0.85, ease: "power1.inOut" }, 8.45);
+    tl.to("#s4-p3 .s4-pkt-in", { x: 820, y: 17, duration: 0.85, ease: "power1.inOut" }, 9.5);
+
+    // p4: client -> n2 -> n5 -> server (a different path again)
+    tl.fromTo("#s4-p4 .s4-pkt-in", { x: -380, y: 102 }, { x: 20, y: -98, duration: 0.95, ease: "power1.inOut", immediateRender: false }, 6.5);
+    tl.to("#s4-p4 .s4-pkt-in", { x: 620, y: -78, duration: 1.0, ease: "power1.inOut" }, 7.7);
+    tl.to("#s4-p4 .s4-pkt-in", { x: 820, y: 72, duration: 0.8, ease: "power1.inOut" }, 8.9);
+
+    // camera pushes in and follows p1 across the mesh, then widens
+    tl.fromTo(
+      "#s4-cam",
+      { scale: 1, x: 0, y: 0, transformOrigin: "50% 50%" },
+      { scale: 1.28, x: 90, y: 40, duration: 0.5, ease: "power2.inOut" },
+      5.2,
+    );
+    tl.to("#s4-cam", { scale: 1.28, x: -180, y: -20, duration: 3.1, ease: "power1.inOut" }, 5.75);
+    tl.to("#s4-cam", { scale: 1, x: 0, y: 0, duration: 1.4, ease: "power2.inOut" }, 9.6);
+
+    // packets land at the server
+    tl.to("#s4-p1 .s4-pkt-in", { opacity: 0, scale: 0.7, duration: 0.3, transformOrigin: "50% 50%" }, 9.6);
+    tl.to("#s4-p2 .s4-pkt-in", { opacity: 0, scale: 0.7, duration: 0.3, transformOrigin: "50% 50%" }, 10.95);
+    tl.to("#s4-p3 .s4-pkt-in", { opacity: 0, scale: 0.7, duration: 0.3, transformOrigin: "50% 50%" }, 10.4);
+    tl.to("#s4-p4 .s4-pkt-in", { opacity: 0, scale: 0.7, duration: 0.3, transformOrigin: "50% 50%" }, 9.75);
+    tl.fromTo(
+      "#s4-server .s4-ep-in",
+      { scale: 1, transformOrigin: "50% 50%" },
+      { scale: 1.09, duration: 0.35, yoyo: true, repeat: 3, ease: "sine.inOut" },
+      9.7,
+    );
+
+    // network layer label lands
+    tl.fromTo(
+      "#s4-label .s4-label-in",
+      { opacity: 0, y: 30, filter: "blur(8px)" },
+      { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.55, ease: "power3.out" },
+      13.9,
+    );
+
+    window.__timelines["s4"] = tl;
+    tl.seek(0);
+  </script>
+</template>
